@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,22 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/employees', function () {
+    return Inertia::render('Employees');
+})->middleware(['auth', 'verified'])->name('employees');
+
+Route::get('/departments', function () {
+    return Inertia::render('Departments');
+})->middleware(['auth', 'verified'])->name('departments');
+
+Route::get('/leavetypes', function () {
+    return Inertia::render('Leavetypes');
+})->middleware(['auth', 'verified'])->name('leavetypes');
+
+Route::resource('chirps', ChirpController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
