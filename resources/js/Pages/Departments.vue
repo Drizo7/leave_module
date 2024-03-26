@@ -5,23 +5,14 @@ import Column from 'primevue/column';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
-import { CustomerService } from '@/service/CustomerService';
+import { CustomerService } from '@/service/Department';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
 const customers = ref();
 const selectedCustomers = ref();
 const filters = ref();
 const representatives = ref([
-    { name: 'Amy Elsner', image: 'amyelsner.png' },
-    { name: 'Anna Fali', image: 'annafali.png' },
-    { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-    { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-    { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-    { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-    { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-    { name: 'Onyama Limba', image: 'onyamalimba.png' },
-    { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-    { name: 'XuXue Feng', image: 'xuxuefeng.png' }
+    { name: 'Amy Elsner', image: 'amyelsner.png' }
 ]);
 const statuses = ref(['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal']);
 
@@ -89,17 +80,17 @@ const getSeverity = (status) => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Departments" />
     <AuthenticatedLayout>
         <div class="py-4">
             <div class="max-w-6xl sm:px-3 lg:px-8">
-                <div class="flex justify-end mb-4"><PrimaryButton>Add New Department</PrimaryButton></div>
+                <div class="flex justify-end mb-4"><PrimaryButton :href="route('departmentform')">Add New Department</PrimaryButton></div>
                 <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
                     <DataTable v-model:filters="filters" v-model:selection="selectedCustomers" :value="customers" paginator :rows="10" dataKey="id" filterDisplay="menu"
                         :globalFilterFields="['name', 'country.name', 'representative.name', 'balance', 'status']">
                         <template #empty> No customers found. </template>
                         <!-- <Column selectionMode="multiple" headerStyle="width: 3rem"></Column> -->
-                        <Column field="name" header="Name" sortable style="min-width: 10rem; font-size: 0.75rem">
+                        <Column field="name" header="ID" sortable style="min-width: 10rem; font-size: 0.75rem">
                             <template #body="{ data }">
                                 {{ data.name }}
                             </template>
@@ -107,10 +98,9 @@ const getSeverity = (status) => {
                                 <InputText v-model="filterModel.value" type="text" class="p-column-filter" placeholder="Search by name" />
                             </template>
                         </Column>
-                        <Column header="Country" sortable sortField="country.name" filterField="country.name" style="min-width: 10rem; font-size: 0.75rem">
+                        <Column header="Name" sortable sortField="country.name" filterField="country.name" style="min-width: 10rem; font-size: 0.75rem">
                             <template #body="{ data }">
                                 <div class="flex items-center gap-2">
-                                    <img alt="flag" src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png" :class="`flag flag-${data.country.code}`" style="width: 24px" />
                                     <span>{{ data.country.name }}</span>
                                 </div>
                             </template>
@@ -118,10 +108,9 @@ const getSeverity = (status) => {
                                 <InputText v-model="filterModel.value" type="text" class="p-column-filter" placeholder="Search by country" />
                             </template>
                         </Column>
-                        <Column header="Agent" sortable sortField="representative.name" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }" style="min-width: 10rem ; font-size: 0.75rem">
+                        <Column header="Short Code" sortable sortField="representative.name" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }" style="min-width: 10rem ; font-size: 0.75rem">
                             <template #body="{ data }">
                                 <div class="flex items-center gap-2">
-                                    <img :alt="data.representative.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${data.representative.image}`" style="width: 32px" />
                                     <span>{{ data.representative.name }}</span>
                                 </div>
                             </template>
@@ -129,7 +118,6 @@ const getSeverity = (status) => {
                                 <MultiSelect v-model="filterModel.value" :options="representatives" optionLabel="name" placeholder="Any" class="p-column-filter">
                                     <template #option="slotProps">
                                         <div class="flex items-center gap-2">
-                                            <img :alt="slotProps.option.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${slotProps.option.image}`" style="width: 32px" />
                                             <span>{{ slotProps.option.name }}</span>
                                         </div>
                                     </template>
@@ -144,43 +132,7 @@ const getSeverity = (status) => {
                                 <Calendar v-model="filterModel.value" dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" mask="99/99/9999" />
                             </template>
                         </Column>
-                        <Column field="balance" header="Balance" sortable filterField="balance" dataType="numeric" style="min-width: 10rem; font-size: 0.75rem">
-                            <template #body="{ data }">
-                                {{ formatCurrency(data.balance) }}
-                            </template>
-                            <template #filter="{ filterModel }">
-                                <InputNumber v-model="filterModel.value" mode="currency" currency="USD" locale="en-US" />
-                            </template>
-                        </Column>
-                        <Column header="Status" field="status" sortable :filterMenuStyle="{ width: '14rem' }" style="min-width: 10rem; font-size: 0.75rem">
-                            <template #body="{ data }">
-                                <Tag :value="data.status" :severity="getSeverity(data.status)" />
-                            </template>
-                            <template #filter="{ filterModel }">
-                                <Dropdown v-model="filterModel.value" :options="statuses" placeholder="Select One" class="p-column-filter" showClear>
-                                    <template #option="slotProps">
-                                        <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
-                                    </template>
-                                </Dropdown>
-                            </template>
-                        </Column>
-                        <Column field="activity" header="Activity" sortable :showFilterMatchModes="false" style="min-width: 10rem; font-size: 0.75rem">
-                            <template #body="{ data }">
-                                <ProgressBar :value="data.activity" :showValue="false" style="height: 6px"></ProgressBar>
-                            </template>
-                            <template #filter="{ filterModel }">
-                                <Slider v-model="filterModel.value" range class="m-3"></Slider>
-                                <div class="flex items-center justify-between px-2">
-                                    <span>{{ filterModel.value ? filterModel.value[0] : 0 }}</span>
-                                    <span>{{ filterModel.value ? filterModel.value[1] : 100 }}</span>
-                                </div>
-                            </template>
-                        </Column>
-                        <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center; overflow: visible">
-                            <template #body>
-                                <Button type="button" icon="pi pi-cog" rounded />
-                            </template>
-                        </Column>
+                        
                     </DataTable>
                 </div>
             </div>

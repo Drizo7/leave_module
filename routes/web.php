@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Api\DirectoryController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,6 +31,18 @@ Route::get('/departments', function () {
 Route::get('/leavetypes', function () {
     return Inertia::render('Leavetypes');
 })->middleware(['auth', 'verified'])->name('leavetypes');
+
+Route::get('/employeeform', function () {
+    return Inertia::render('Forms/AddEmployeeForm');
+})->middleware(['auth', 'verified'])->name('employeeform');
+
+Route::get('/departmentform', function () {
+    return Inertia::render('Forms/AddDepartmentForm');
+})->middleware(['auth', 'verified'])->name('departmentform');
+
+Route::get('/leavetypeform', function () {
+    return Inertia::render('Forms/AddLeaveTypeForm');
+})->middleware(['auth', 'verified'])->name('leavetypeform');
 
 Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'update', 'destroy'])

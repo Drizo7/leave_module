@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
@@ -8,8 +8,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import InputText from 'primevue/inputtext';
 import 'primeicons/primeicons.css'
-
-
+import axios from 'axios';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -40,12 +39,12 @@ const showingNavigationDropdown = ref(false);
                         <NavLink :href="route('leavetypes')" :active="route().current('leavetypes')" class="block py-2 text-white hover:text-gray-300">
                             Leave Types
                         </NavLink>
-                        <NavLink :href="route('chirps.index')"  class="block py-2 text-white hover:text-gray-300">
+                        <NavLink class="block py-2 text-white hover:text-gray-300">
                             Admin Settings
                         </NavLink>
-                        <NavLink :href="route('chirps.index')" :active="route().current('chirps.index')" class="block py-2 text-white hover:text-gray-300">
+                        <!-- <NavLink :href="route('chirps.index')" :active="route().current('chirps.index')" class="block py-2 text-white hover:text-gray-300">
                             Chirps
-                        </NavLink>
+                        </NavLink> -->
                     </div>
                 </nav>
             </div>
@@ -57,6 +56,9 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex justify-between h-16">
                             <div class="flex">
                                 <!-- Left side content (if any) -->
+                                <div class="flex items-center">
+                                    <span>Directory...</span>
+                                </div>
                             </div>
 
                             <div class="flex items-center">
