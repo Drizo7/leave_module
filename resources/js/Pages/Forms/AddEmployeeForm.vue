@@ -21,35 +21,32 @@ import { ref } from 'vue';
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <section>
                         <header>
-                            <h2 class="text-lg font-medium text-gray-900">Update Password</h2>
-
-                            <p class="mt-1 text-sm text-gray-600">
-                                Ensure your account is using a long, random password to stay secure.
-                            </p>
+                            <h2 class="text-lg font-medium text-gray-900">Add New Employee</h2>
                         </header>
 
                         <form class="mt-6 space-y-6">
                             <div>
-                                <InputLabel for="current_password" value="Current Password" />
+                                <InputLabel for="current_password" value="Full Name" />
 
                                 <TextInput
-                                    id="current_password"
+                                    id="name"
                                     ref="currentPasswordInput"
-                                    type="password"
+                                    type="text"
                                     class="mt-1 block w-full"
                                     autocomplete="current-password"
+                                    
                                 />
 
                                 
                             </div>
 
                             <div>
-                                <InputLabel for="password" value="New Password" />
+                                <InputLabel for="password" value="Role" />
 
                                 <TextInput
-                                    id="password"
+                                    id="name"
                                     ref="passwordInput"
-                                    type="password"
+                                    type="text"
                                     class="mt-1 block w-full"
                                     autocomplete="new-password"
                                 />
@@ -58,11 +55,23 @@ import { ref } from 'vue';
                             </div>
 
                             <div>
-                                <InputLabel for="password_confirmation" value="Confirm Password" />
+                                <InputLabel for="password_confirmation" value="Date of birth" />
 
                                 <TextInput
-                                    id="password_confirmation"
-                                    type="password"
+                                    id="name"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    autocomplete="new-password"
+                                />
+
+                                
+                            </div>
+                            <div>
+                                <InputLabel for="password_confirmation" value="Date Joined" />
+
+                                <TextInput
+                                    id="name"
+                                    type="text"
                                     class="mt-1 block w-full"
                                     autocomplete="new-password"
                                 />
