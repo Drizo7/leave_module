@@ -96,7 +96,7 @@ const getSeverity = (status) => {
                 <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
                     
                         <div class="flex flex-col gap-6 mb-8 ml-4">
-                            <div class="grid grid-cols-3 gap-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                             <div class="flex items-center">
                                 <div class="w-10 h-24 bg-purple-500 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
@@ -108,7 +108,7 @@ const getSeverity = (status) => {
                             <div class="flex items-center">
                                 <div class="w-10 h-24 bg-blue-500 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
-                                <p class="text-lg">Available Departments</p>
+                                <p class="text-lg">Departments</p>
                                 <p class="text-4xl font-semi-bold">8</p>
                                 </div>
                             </div>
@@ -116,13 +116,11 @@ const getSeverity = (status) => {
                             <div class="flex items-center">
                                 <div class="w-10 h-24 bg-orange-400 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
-                                <p class="text-lg">Available Leave Types</p>
+                                <p class="text-lg">Leave Types</p>
                                 <p class="text-4xl font-semi-bold">3</p>
                                 </div>
                             </div>
-                            </div>
 
-                            <div class="grid grid-cols-3 gap-6">
                             <div class="flex items-center">
                                 <div class="w-10 h-24 bg-yellow-400 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
@@ -142,11 +140,12 @@ const getSeverity = (status) => {
                             <div class="flex items-center">
                                 <div class="w-10 h-24 bg-red-600 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
-                                <p class="text-sm font-semibold">Rejected</p>
+                                <p class="text-lg">Rejected</p>
                                 <p class="text-4xl font-semi-bold">5</p>
                                 </div>
                             </div>
                             </div>
+
                         </div>
                         <DataTable v-model:filters="filters" v-model:selection="selectedCustomers" :value="customers" paginator :rows="10" dataKey="id" filterDisplay="menu"
                         :globalFilterFields="['name', 'country.name', 'representative.name', 'balance', 'status']">

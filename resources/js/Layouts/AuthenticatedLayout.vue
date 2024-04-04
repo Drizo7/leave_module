@@ -26,8 +26,8 @@ const toggleNavigation = () => {
 <template>
     <div>
       <!-- Navigation -->
-      <nav class="bg-[#0D2C49] border-b border-gray-200 shadow-md fixed w-full z-10">
-        <div class="max-w-7xl mx-auto px-4m sm:px-6 lg:px-8 flex justify-between h-16 items-center">
+      <nav class="bg-white border-b border-gray-200 shadow-md fixed w-full z-10">
+        <div class="max-w-7xl mx-auto px-4m sm:px-6 lg:ml-48 flex justify-between h-16 items-center">
           <!-- Left side content -->
           <div class="flex items-center">
             <span>Directory...</span>
@@ -106,10 +106,13 @@ const toggleNavigation = () => {
         </transition>
 
         <!-- Side Navigation (visible on large screens) -->
-      <div class="hidden lg:block top-16 left-0 h-screen overflow-y-auto w-48 bg-[#32588A] p-5 fixed z-10">
+      <div class="hidden lg:block top-0 left-0 h-screen overflow-y-auto w-48 bg-[#0D2C49] p-5 fixed z-10">
+        <div>
+          <h2 class="text-white">App Name</h2>
+        </div>
             <!-- Side navigation content -->
             <nav>  
-              <div>
+              <div class="mt-8">
                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')" class="block py-2 text-white hover:text-gray-300">
                   <img :src="DashboardIcon" class="inline-block h-5 w-5 mr-2" alt="Dashboard Icon" />
                   Dashboard
