@@ -1,5 +1,5 @@
 <script setup>
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TertiallyButton from '@/Components/TertiallyButton.vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
@@ -87,7 +87,7 @@ const getSeverity = (status) => {
     <AuthenticatedLayout>
         <div class="py-4">
             <div class="max-w-6xl sm:px-3 lg:px-8">
-                <div class="flex justify-end mb-4"><PrimaryButton :href="route('employeeform')">Add New Employee</PrimaryButton></div>
+                <div class="flex justify-end mb-4"><TertiallyButton :href="route('employeeform')">Add New Employee</TertiallyButton></div>
                 <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
                     <DataTable v-model:filters="filters" v-model:selection="selectedCustomers" :value="customers" paginator :rows="10" dataKey="id" filterDisplay="menu"
                         :globalFilterFields="['name', 'country.name', 'representative.name', 'balance', 'status']">

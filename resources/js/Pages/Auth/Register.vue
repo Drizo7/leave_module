@@ -24,6 +24,27 @@ const submit = () => {
     <GuestLayout>
         <Head title="Register" />
 
+        <div class="flex justify-center mb-4 mt-6">
+                <span class="mr-2 p-6 rounded-full bg-gray-800" >
+                <svg
+                    class="h-8 w-8 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                >
+                    <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                </svg>
+                </span>
+            </div>
+        <div class="flex justify-center">
+            <h2 class="mb-4 font medium">Register an account</h2>
+        </div> 
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="name" value="Name" />

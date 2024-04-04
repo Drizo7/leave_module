@@ -4,6 +4,11 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
+import DashboardIcon from '@/Assets/dashboard.png';
+import DepartmentsIcon from '@/Assets/department.png';
+import EmployeesIcon from '@/Assets/ph-users.png';
+import LeavetypesIcon from '@/Assets/leave.png';
+import AdminsettingsIcon from '@/Assets/settings.png';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import InputText from 'primevue/inputtext';
@@ -28,18 +33,23 @@ const showingNavigationDropdown = ref(false);
                 <nav>
                     <div>
                         <NavLink :href="route('dashboard')" :active="route().current('dashboard')" class="block py-2 text-white hover:text-gray-300">
+                            <img :src="DashboardIcon" class="inline-block h-5 w-5 mr-2" alt="Dashboard Icon" />
                             Dashboard
                         </NavLink>
                         <NavLink :href="route('employees')" :active="route().current('employees')" class="block py-2 text-white hover:text-gray-300">
+                            <img :src="EmployeesIcon" class="inline-block h-5 w-5 mr-2" alt="Employees Icon" />
                             Employees
                         </NavLink>
                         <NavLink :href="route('departments')" :active="route().current('departments')" class="block py-2 text-white hover:text-gray-300">
+                            <img :src="DepartmentsIcon" class="inline-block h-5 w-5 mr-2" alt="Departments Icon" />
                             Departments
                         </NavLink>
                         <NavLink :href="route('leavetypes')" :active="route().current('leavetypes')" class="block py-2 text-white hover:text-gray-300">
+                            <img :src="LeavetypesIcon" class="inline-block h-5 w-5 mr-2" alt="Leavetypes Icon" />
                             Leave Types
                         </NavLink>
                         <NavLink class="block py-2 text-white hover:text-gray-300">
+                            <img :src="AdminsettingsIcon" class="inline-block h-5 w-5 mr-2" alt="AdminSettings Icon" />
                             Admin Settings
                         </NavLink>
                         <!-- <NavLink :href="route('chirps.index')" :active="route().current('chirps.index')" class="block py-2 text-white hover:text-gray-300">
