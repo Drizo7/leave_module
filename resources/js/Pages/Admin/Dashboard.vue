@@ -2,7 +2,7 @@
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import { CustomerService } from '@/service/Employee';
@@ -90,7 +90,7 @@ const getSeverity = (status) => {
 
 <template>
     <Head title="Dashboard" />
-    <AuthenticatedLayout>
+    <AdminLayout>
         <div class="py-8">
             <div class="max-w-6xl sm:px-3 lg:px-8">
                 <!-- an inner page name -->
@@ -206,5 +206,5 @@ const getSeverity = (status) => {
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </AdminLayout>
 </template>

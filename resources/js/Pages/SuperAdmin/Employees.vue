@@ -2,7 +2,7 @@
 import TertiallyButton from '@/Components/TertiallyButton.vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import SuperAdminLayout from '@/Layouts/SuperAdminLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import { CustomerService } from '@/service/Employee';
@@ -84,7 +84,7 @@ const getSeverity = (status) => {
 
 <template>
     <Head title="Employees" />
-    <AuthenticatedLayout>
+    <SuperAdminLayout>
         <div class="py-4">
             <div class="max-w-6xl sm:px-3 lg:px-8">
                 <div class="flex justify-end mb-4"><TertiallyButton :href="route('employeeform')">Add New Employee</TertiallyButton></div>
@@ -176,5 +176,5 @@ const getSeverity = (status) => {
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </SuperAdminLayout>
 </template>

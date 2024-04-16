@@ -1,15 +1,15 @@
 <script setup>
 defineProps({
-    message: {
+    name: {
         type: String,
     },
 });
 </script>
 
 <template>
-    <div v-show="message">
+    <div v-show="name">
         <p class="text-sm text-red-600">
-            {{ message }}
+            {{ name }}
         </p>
     </div>
 </template>

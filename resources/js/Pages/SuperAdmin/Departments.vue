@@ -2,10 +2,10 @@
 import TertiallyButton from '@/Components/TertiallyButton.vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import SuperAdminLayout from '@/Layouts/SuperAdminLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
-import { CustomerService } from '@/service/Leavetype';
+import { CustomerService } from '@/service/Department';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
 const customers = ref();
@@ -80,11 +80,11 @@ const getSeverity = (status) => {
 </script>
 
 <template>
-    <Head title="LeaveTypes" />
-    <AuthenticatedLayout>
+    <Head title="Departments" />
+    <SuperAdminLayout>
         <div class="py-4">
             <div class="max-w-6xl sm:px-3 lg:px-8">
-                <div class="flex justify-end mb-4"><TertiallyButton :href="route('leavetypeform')">Add New Leave Type</TertiallyButton></div>
+                <div class="flex justify-end mb-4"><TertiallyButton :href="route('departmentform')">Add New Department</TertiallyButton></div>
                 <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
                     <DataTable v-model:filters="filters" v-model:selection="selectedCustomers" :value="customers" paginator :rows="10" dataKey="id" filterDisplay="menu"
                         :globalFilterFields="['name', 'country.name', 'representative.name', 'balance', 'status']">
@@ -108,7 +108,7 @@ const getSeverity = (status) => {
                                 <InputText v-model="filterModel.value" type="text" class="p-column-filter" placeholder="Search by country" />
                             </template>
                         </Column>
-                        <Column header="Description" sortable sortField="representative.name" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }" style="min-width: 10rem ; font-size: 0.75rem">
+                        <Column header="Short Code" sortable sortField="representative.name" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }" style="min-width: 10rem ; font-size: 0.75rem">
                             <template #body="{ data }">
                                 <div class="flex items-center gap-2">
                                     <span>{{ data.representative.name }}</span>
@@ -118,7 +118,6 @@ const getSeverity = (status) => {
                                 <MultiSelect v-model="filterModel.value" :options="representatives" optionLabel="name" placeholder="Any" class="p-column-filter">
                                     <template #option="slotProps">
                                         <div class="flex items-center gap-2">
-                                            <img :alt="slotProps.option.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${slotProps.option.image}`" style="width: 32px" />
                                             <span>{{ slotProps.option.name }}</span>
                                         </div>
                                     </template>
@@ -138,5 +137,5 @@ const getSeverity = (status) => {
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </SuperAdminLayout>
 </template>

@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
 
 defineProps({
     canResetPassword: {
@@ -27,6 +28,14 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+
+window.addEventListener('popstate', refreshPage);
+
+
+function refreshPage() {
+  window.location.reload();
+}
+
 </script>
 
 <template>

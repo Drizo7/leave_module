@@ -21,7 +21,6 @@ const value1 = ref('');
 const toggleNavigation = () => {
   showingNavigationDropdown.value = !showingNavigationDropdown.value;
 };
-
 </script>
 
 <template>
@@ -89,6 +88,14 @@ const toggleNavigation = () => {
                 <img :src="EmployeesIcon" class="inline-block h-5 w-5 mr-2" alt="Employees Icon" />
                 Employees
               </NavLink>
+              <NavLink :href="route('departments')" :active="route().current('departments')" class="block py-2 text-white hover:text-gray-300">
+                <img :src="DepartmentsIcon" class="inline-block h-5 w-5 mr-2" alt="Departments Icon" />
+                Departments
+              </NavLink>
+              <NavLink :href="route('leavetypes')" :active="route().current('leavetypes')" class="block py-2 text-white hover:text-gray-300">
+                <img :src="LeavetypesIcon" class="inline-block h-5 w-5 mr-2" alt="Leavetypes Icon" />
+                Leave Types
+              </NavLink>
               <NavLink class="block py-2 text-white hover:text-gray-300">
                 <img :src="AdminsettingsIcon" class="inline-block h-5 w-5 mr-2" alt="AdminSettings Icon" />
                 Settings
@@ -106,14 +113,27 @@ const toggleNavigation = () => {
             <!-- Side navigation content -->
             <nav>  
               <div class="mt-8">
-                <NavLink :href="route('dashboard')" :active="route().current('dashboard')" class="block py-2 text-white hover:text-gray-200">
+                <NavLink :href="route('admindashboard')" :active="route().current('admindashboard')" class="block py-2 text-white hover:text-gray-200">
                   <img :src="DashboardIcon" class="inline-block h-5 w-5 mr-2" alt="Dashboard Icon" />
                   Dashboard
                 </NavLink>
                 <NavLink :href="route('employees')" :active="route().current('employees')" class="block py-2 text-white hover:text-gray-200">
                   <img :src="EmployeesIcon" class="inline-block h-5 w-5 mr-2" alt="Employees Icon" />
-                  Leave Request
+                  Employees
                 </NavLink>
+                <NavLink :href="route('departments')" :active="route().current('departments')" class="block py-2 text-white hover:text-gray-200">
+                  <img :src="DepartmentsIcon" class="inline-block h-5 w-5 mr-2" alt="Departments Icon" />
+                  Departments
+                </NavLink>
+                <NavLink :href="route('leavetypes')" :active="route().current('leavetypes')" class="block py-2 text-white hover:text-gray-200">
+                  <img :src="LeavetypesIcon" class="inline-block h-5 w-5 mr-2" alt="Leavetypes Icon" />
+                  Leave 
+                </NavLink>
+                <NavLink :href="route('leavetypes')" :active="route().current('leavetypes')" class="block py-2 text-white hover:text-gray-200">
+                  <img :src="LeavetypesIcon" class="inline-block h-5 w-5 mr-2" alt="Leavetypes Icon" />
+                  Leave Types
+                </NavLink>
+                
               </div>
             </nav>
           </div>
