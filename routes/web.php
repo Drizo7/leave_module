@@ -4,6 +4,9 @@ use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\DirectoryController;
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LeavetypeController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Foundation\Application;
@@ -45,8 +48,35 @@ Route::get('/admindashboard', function () {
             'update' => 'roles.update',
             'destroy' => 'roles.destroy',
         ]);
-        /* Route::get('/createpermissions', [RoleController::class, 'create'])->name('permissions.create');
-        Route::post('/storepermissions', [RoleController::class, 'store'])->name('permissions.store'); */
+        Route::resource('users', UserController::class)->names([
+            'index' => 'users.index',
+            'destroy' => 'users.destroy',
+        ]);
+        Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+        Route::post('/users/{user}/assign-role', [UserController::class, 'assignRole'])->name('users.assign-role');
+        Route::delete('/users/{user}/remove-role/{role}', [UserController::class, 'removeRole'])->name('users.remove-role');
+        Route::post('/users/{user}/give-permission', [UserController::class, 'givePermission'])->name('users.give-permission');
+        Route::delete('/users/{user}/revoke-permission/{permission}', [UserController::class, 'revokePermission'])->name('users.revoke-permission');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    
+        Route::resource('departments', DepartmentController::class)->names([
+            'index' => 'departments.index',
+            'create' => 'departments.create',
+            'store' => 'departments.store',
+            'show' => 'departments.show',
+            'edit' => 'departments.edit',
+            'update' => 'departments.update',
+            'destroy' => 'departments.destroy',
+        ]);
+        Route::resource('leavetypes', LeavetypeController::class)->names([
+            'index' => 'leavetypes.index',
+            'create' => 'leavetypes.create',
+            'store' => 'leavetypes.store',
+            'show' => 'leavetypes.show',
+            'edit' => 'leavetypes.edit',
+            'update' => 'leavetypes.update',
+            'destroy' => 'leavetypes.destroy',
+        ]);
         Route::resource('permissions', PermissionController::class)->names([
             'index' => 'permissions.index',
             'create' => 'permissions.create',
@@ -56,6 +86,11 @@ Route::get('/admindashboard', function () {
             'update' => 'permissions.update',
             'destroy' => 'permissions.destroy',
         ]);
+        Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
+        Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
+        Route::post('/permissions/{permission}/roles', [PermissionController::class, 'assignRole'])->name('permissions.roles');
+        Route::delete('/permissions/{permission}/roles/{role}', [PermissionController::class, 'removeRole'])->name('permissions.roles.remove');
+        
     }); 
 
 Route::get('/employees', function () {

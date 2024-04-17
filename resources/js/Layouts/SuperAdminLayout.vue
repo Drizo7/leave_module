@@ -117,11 +117,11 @@ const toggleNavigation = () => {
                   <img :src="DashboardIcon" class="inline-block h-5 w-5 mr-2" alt="Dashboard Icon" />
                   Dashboard
                 </NavLink>
-                <NavLink :href="route('employees')" :active="route().current('employees')" class="block py-2 text-white hover:text-gray-200">
+                <NavLink :href="route('admin.users.index')" :active="route().current('admin.users.index')" class="block py-2 text-white hover:text-gray-200">
                   <img :src="EmployeesIcon" class="inline-block h-5 w-5 mr-2" alt="Employees Icon" />
                   Employees
                 </NavLink>
-                <NavLink :href="route('departments')" :active="route().current('departments')" class="block py-2 text-white hover:text-gray-200">
+                <NavLink :href="route('admin.departments.index')" :active="route().current('admin.departments.index')" class="block py-2 text-white hover:text-gray-200">
                   <img :src="DepartmentsIcon" class="inline-block h-5 w-5 mr-2" alt="Departments Icon" />
                   Departments
                 </NavLink>
@@ -129,7 +129,7 @@ const toggleNavigation = () => {
                   <img :src="LeavetypesIcon" class="inline-block h-5 w-5 mr-2" alt="Leavetypes Icon" />
                   Leave 
                 </NavLink>
-                <NavLink :href="route('leavetypes')" :active="route().current('leavetypes')" class="block py-2 text-white hover:text-gray-200">
+                <NavLink :href="route('admin.leavetypes.index')" :active="route().current('admin.leavetypes.index')" class="block py-2 text-white hover:text-gray-200">
                   <img :src="LeavetypesIcon" class="inline-block h-5 w-5 mr-2" alt="Leavetypes Icon" />
                   Leave Types
                 </NavLink>

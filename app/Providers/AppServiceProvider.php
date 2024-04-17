@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('delete', function ($user, $role) {
         return $user->hasRole('super-admin');
+
     });
     }
 }
