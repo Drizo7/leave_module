@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuperAdmin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -16,7 +17,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = Department::all();
-        return Inertia::render('Departments/Index', [
+        return Inertia::render('SuperAdmin/Departments/Index', [
             'pageName' => 'Departments ',
             'departments' => $departments,
         ]);
@@ -27,7 +28,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Departments/Create', [
+        return Inertia::render('SuperAdmin/Departments/Create', [
             'pageName' => 'Create Departments',
         ]);
     }

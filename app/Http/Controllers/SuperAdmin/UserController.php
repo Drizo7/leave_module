@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuperAdmin;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -15,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return Inertia::render('Employees/Index', [
+        return Inertia::render('SuperAdmin/Employees/Index', [
             'pageName' => 'Employees ',
             'users' => $users,
         ]);
@@ -23,7 +24,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return Inertia::render('Employees/Roles', [
+        return Inertia::render('SuperAdmin/Employees/Roles', [
             'user' => $user->load('roles', 'permissions'),
             'roles' => Role::all(),
             'permissions' => Permission::all(),

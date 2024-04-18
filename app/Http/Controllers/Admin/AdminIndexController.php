@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Inertia\Response;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
-class IndexController extends Controller
+class AdminIndexController extends Controller
 {
     public function index(): Response 
     {
-        return Inertia::render('SuperAdmin/Index', [
+        return Inertia::render('Admin/Dashboard', [
             'pageName' => 'Admin Dashboard',]);
     }
 }

@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Leave;
 use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\Inertia;
 use Illuminate\Http\RedirectResponse;
 
-class LeaveController extends Controller
+class AdminLeaveController extends Controller
 {
     /**
      * Display a listing of the resource.

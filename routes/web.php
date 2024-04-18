@@ -3,12 +3,16 @@
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\DirectoryController;
-use App\Http\Controllers\Admin\IndexController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\LeavetypeController;
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\SuperAdmin\IndexController;
+use App\Http\Controllers\Admin\AdminIndexController;
+use App\Http\Controllers\Admin\AdminDepartmentController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminLeavetypeController;
+use App\Http\Controllers\SuperAdmin\DepartmentController;
+use App\Http\Controllers\SuperAdmin\UserController;
+use App\Http\Controllers\SuperAdmin\LeavetypeController;
+use App\Http\Controllers\SuperAdmin\PermissionController;
+use App\Http\Controllers\SuperAdmin\RoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,11 +32,40 @@ Route::get('/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admindashboard', function () {
-    return Inertia::render('Admin/Dashboard', [
-        'pageName' => 'Admin Dashboard',
-    ]);
-})->middleware(['auth', 'verified', 'role:admin'])->name('admindashboard');
+Route::middleware(['auth', 'role:admin'])
+    ->name('normaladmin.')
+    ->prefix('normaladmin')
+    ->group(function() {
+        Route::get('/admindashboard', [AdminIndexController::class, 'index'])->name('index');
+        
+        Route::resource('adminusers', AdminUserController::class)->names([
+            'index' => 'users.index',
+            'destroy' => 'users.destroy',
+        ]);
+        Route::get('/users/{user}', [AdminUserController::class, 'show'])->name('users.show');/* 
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy'); */
+    
+        Route::resource('admindepartments', AdminDepartmentController::class)->names([
+            'index' => 'departments.index',
+            'create' => 'departments.create',
+            'store' => 'departments.store',
+            'show' => 'departments.show',
+            'edit' => 'departments.edit',
+            'update' => 'departments.update',
+            'destroy' => 'departments.destroy',
+        ]);
+        Route::resource('adminleavetypes', AdminLeavetypeController::class)->names([
+            'index' => 'leavetypes.index',
+            'create' => 'leavetypes.create',
+            'store' => 'leavetypes.store',
+            'show' => 'leavetypes.show',
+            'edit' => 'leavetypes.edit',
+            'update' => 'leavetypes.update',
+            'destroy' => 'leavetypes.destroy',
+        ]);
+        
+    }); 
+
 
  Route::middleware(['auth', 'role:super-admin'])
     ->name('admin.')
