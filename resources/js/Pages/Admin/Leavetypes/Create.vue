@@ -9,7 +9,7 @@ const form = useForm({
 });
 
 function submit() {
-  form.post(route('normaladmin.adminleavetypes.store'), {
+  form.post(route('normaladmin.leavetypes.store'), {
     onSuccess: () => form.reset(),
     onError: (errors) => {
         alert(`Error: ${errors}`);

@@ -8,6 +8,20 @@ import { ref, onMounted } from 'vue';
 import { CustomerService } from '@/service/Employee';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
+const { totalEmployees, totalDepartments, totalLeavetypes } = defineProps({
+        totalEmployees: {
+            type: Number,
+            required: true,
+        },
+        totalDepartments: {
+            type: Number,
+            required: true,
+        },
+        totalLeavetypes: {
+            type: Number,
+            required: true,
+        },
+    });
 const customers = ref();
 const selectedCustomers = ref();
 const filters = ref();
@@ -105,7 +119,7 @@ const getSeverity = (status) => {
                                 <div class="w-10 h-24 bg-purple-500 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
                                 <p class="text-lg">Total Employees </p>
-                                <p class="text-4xl font-semi-bold">42</p>
+                                <p class="text-4xl font-semi-bold">{{ totalEmployees }}</p>
                                 </div>
                             </div>
 
@@ -113,7 +127,7 @@ const getSeverity = (status) => {
                                 <div class="w-10 h-24 bg-blue-500 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
                                 <p class="text-lg">Departments</p>
-                                <p class="text-4xl font-semi-bold">8</p>
+                                <p class="text-4xl font-semi-bold">{{ totalDepartments }}</p>
                                 </div>
                             </div>
 
@@ -121,7 +135,7 @@ const getSeverity = (status) => {
                                 <div class="w-10 h-24 bg-orange-400 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
                                 <p class="text-lg">Leave Types</p>
-                                <p class="text-4xl font-semi-bold">3</p>
+                                <p class="text-4xl font-semi-bold">{{ totalLeavetypes }}</p>
                                 </div>
                             </div>
 

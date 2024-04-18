@@ -7,6 +7,7 @@ use App\Models\Leavetype;
 use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 
 class LeavetypeController extends Controller

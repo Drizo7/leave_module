@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminLeaveController;
+use App\Http\Controllers\EmployeeLeaveController;
 use App\Http\Controllers\Api\DirectoryController;
 use App\Http\Controllers\SuperAdmin\IndexController;
 use App\Http\Controllers\Admin\AdminIndexController;
@@ -32,12 +34,21 @@ Route::get('/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth', 'verified')
+    ->group(function () {
+        Route::resource('employee-leaves', EmployeeLeaveController::class);
+    });
+
 Route::middleware(['auth', 'role:admin'])
     ->name('normaladmin.')
     ->prefix('normaladmin')
     ->group(function() {
         Route::get('/admindashboard', [AdminIndexController::class, 'index'])->name('index');
-        
+
+        Route::resource('leaves', AdminLeaveController::class);
+        Route::post('leaves/{adminLeave}/approve', [AdminLeaveController::class, 'approve'])->name('admin-leaves.approve');
+        Route::post('leaves/{adminLeave}/reject', [AdminLeaveController::class, 'reject'])->name('admin-leaves.reject');
+
         Route::resource('adminusers', AdminUserController::class)->names([
             'index' => 'users.index',
             'destroy' => 'users.destroy',
@@ -126,11 +137,6 @@ Route::middleware(['auth', 'role:admin'])
         
     }); 
 
-Route::get('/employees', function () {
-    return Inertia::render('SuperAdmin/Employees', [
-        'pageName' => 'Employees',
-    ]);
-})->middleware(['auth', 'verified', 'role:admin|super-admin'])->name('employees');
 
 Route::get('/departments', function () {
     return Inertia::render('SuperAdmin/Departments', [

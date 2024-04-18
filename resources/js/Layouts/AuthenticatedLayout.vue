@@ -85,9 +85,9 @@ const toggleNavigation = () => {
                 <img :src="DashboardIcon" class="inline-block h-5 w-5 mr-2" alt="Dashboard Icon" />
                 Dashboard
               </NavLink>
-              <NavLink :href="route('employees')" :active="route().current('employees')" class="block py-2 text-white hover:text-gray-300">
+              <NavLink :href="route('employee-leaves.create')" :active="route().current('employee-leaves.create')" class="block py-2 text-white hover:text-gray-300">
                 <img :src="EmployeesIcon" class="inline-block h-5 w-5 mr-2" alt="Employees Icon" />
-                Employees
+                Apply leave
               </NavLink>
               <NavLink class="block py-2 text-white hover:text-gray-300">
                 <img :src="AdminsettingsIcon" class="inline-block h-5 w-5 mr-2" alt="AdminSettings Icon" />
@@ -110,9 +110,13 @@ const toggleNavigation = () => {
                   <img :src="DashboardIcon" class="inline-block h-5 w-5 mr-2" alt="Dashboard Icon" />
                   Dashboard
                 </NavLink>
-                <NavLink :href="route('employees')" :active="route().current('employees')" class="block py-2 text-white hover:text-gray-200">
+                <NavLink :href="route('employee-leaves.create')" :active="route().current('employee-leaves.create')" class="block py-2 text-white hover:text-gray-200">
                   <img :src="EmployeesIcon" class="inline-block h-5 w-5 mr-2" alt="Employees Icon" />
-                  Leave Request
+                  Apply leave
+                </NavLink>
+                <NavLink :href="route('employee-leaves.index')" :active="route().current('employee-leaves.index')" class="block py-2 text-white hover:text-gray-200">
+                  <img :src="EmployeesIcon" class="inline-block h-5 w-5 mr-2" alt="Employees Icon" />
+                  Leave History
                 </NavLink>
               </div>
             </nav>

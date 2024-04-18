@@ -80,19 +80,19 @@ const toggleNavigation = () => {
       <div v-show="showingNavigationDropdown" class="lg:hidden relative top-16 left-0 w-auto h-auto bg-[#0D2C49] p-5">
         <nav>
           <div class="flex flex-col items-center"> <!-- Added flex and flex-col classes -->
-            <NavLink :href="route('dashboard')" :active="route().current('dashboard')" class="block py-2 text-white hover:text-gray-300">
+            <NavLink :href="route('normaladmin.index')" :active="route().current('normaladmin.index')" class="block py-2 text-white hover:text-gray-300">
                 <img :src="DashboardIcon" class="inline-block h-5 w-5 mr-2" alt="Dashboard Icon" />
                 Dashboard
               </NavLink>
-              <NavLink :href="route('employees')" :active="route().current('employees')" class="block py-2 text-white hover:text-gray-300">
+              <NavLink :href="route('normaladmin.users.index')" :active="route().current('normaladmin.users.index')" class="block py-2 text-white hover:text-gray-300">
                 <img :src="EmployeesIcon" class="inline-block h-5 w-5 mr-2" alt="Employees Icon" />
                 Employees
               </NavLink>
-              <NavLink :href="route('departments')" :active="route().current('departments')" class="block py-2 text-white hover:text-gray-300">
+              <NavLink :href="route('normaladmin.departments.index')" :active="route().current('normaladmin.departments.index')" class="block py-2 text-white hover:text-gray-300">
                 <img :src="DepartmentsIcon" class="inline-block h-5 w-5 mr-2" alt="Departments Icon" />
                 Departments
               </NavLink>
-              <NavLink :href="route('leavetypes')" :active="route().current('leavetypes')" class="block py-2 text-white hover:text-gray-300">
+              <NavLink :href="route('normaladmin.leavetypes.index')" :active="route().current('normaladmin.leavetypes.index')" class="block py-2 text-white hover:text-gray-300">
                 <img :src="LeavetypesIcon" class="inline-block h-5 w-5 mr-2" alt="Leavetypes Icon" />
                 Leave Types
               </NavLink>
@@ -125,9 +125,9 @@ const toggleNavigation = () => {
                   <img :src="DepartmentsIcon" class="inline-block h-5 w-5 mr-2" alt="Departments Icon" />
                   Departments
                 </NavLink>
-                <NavLink :href="route('leavetypes')" :active="route().current('leavetypes')" class="block py-2 text-white hover:text-gray-200">
+                <NavLink :href="route('normaladmin.leaves.index')" :active="route().current('normaladmin.leaves.index')" class="block py-2 text-white hover:text-gray-200">
                   <img :src="LeavetypesIcon" class="inline-block h-5 w-5 mr-2" alt="Leavetypes Icon" />
-                  Leave 
+                  Leave Requests
                 </NavLink>
                 <NavLink :href="route('normaladmin.leavetypes.index')" :active="route().current('normaladmin.leavetypes.index')" class="block py-2 text-white hover:text-gray-200">
                   <img :src="LeavetypesIcon" class="inline-block h-5 w-5 mr-2" alt="Leavetypes Icon" />

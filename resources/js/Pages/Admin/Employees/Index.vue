@@ -22,7 +22,7 @@ const users = ref(pageProps.users || []);
 
 function deleteUser(id) {
   if (confirm('Are you sure you want to delete this user?'+ id)) {
-    form.delete(route('admin.users.destroy', id), {
+    form.delete(route('normaladmin.users.destroy', id), {
       onSuccess: (page) => {
         users.value = page.props.users;
         // Display a success message or redirect to the roles index page
@@ -58,7 +58,7 @@ function deleteUser(id) {
                             <td class="px-6 py-4">{{ user.email }}</td>
                             <td class="flex justify-end mr-2 py-4" >
                                 <div class="flex space-x-2">
-                                    <TertiallyButton :href="route('normaladmin.adminusers.show', user.id)">View</TertiallyButton>
+                                    <TertiallyButton :href="route('normaladmin.users.show', user.id)">View</TertiallyButton>
                                     <TertiallyButton @click="deleteUser(user.id)">Delete</TertiallyButton>
                                 </div>
                             </td>

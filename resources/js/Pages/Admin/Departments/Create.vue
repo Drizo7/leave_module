@@ -10,7 +10,7 @@ const form = useForm({
 });
 
 function submit() {
-  form.post(route('normaladmin.admindepartments.store'), {
+  form.post(route('normaladmin.departments.store'), {
     onSuccess: () => form.reset(),
     onError: (errors) => {
         alert(`Error: ${errors}`);

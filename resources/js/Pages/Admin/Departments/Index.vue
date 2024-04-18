@@ -22,7 +22,7 @@ const departments = ref(pageProps.departments || []);
 
 function deleteDepartment(id) {
   if (confirm('Are you sure you want to delete this role?'+ id)) {
-    form.delete(route('normaladmin.admindepartments.destroy', id), {
+    form.delete(route('normaladmin.departments.destroy', id), {
       onSuccess: (page) => {
         departments.value = page.props.departments;
         // Display a success message or redirect to the roles index page
@@ -43,7 +43,7 @@ function deleteDepartment(id) {
         <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
           <div class="bg-white shadow-md rounded-lg overflow-hidden">
             <div class="flex justify-end p-2">
-              <TertiallyButton :href="route('normaladmin.admindepartments.create')">Create department</TertiallyButton>
+              <TertiallyButton :href="route('normaladmin.departments.create')">Create department</TertiallyButton>
             </div>
             <div class="overflow-x-auto">
                 <table class="table-auto w-full border-collapse bg-white shadow-md">
@@ -62,7 +62,7 @@ function deleteDepartment(id) {
                 <td class="px-6 py-4">{{ department.hod }}</td>
                 <td class="flex justify-end mr-2 py-4" >
                     <div class="flex space-x-2">
-                        <TertiallyButton :href="route('normaladmin.admindepartments.edit', department.id)">Edit</TertiallyButton>
+                        <TertiallyButton :href="route('normaladmin.departments.edit', department.id)">Edit</TertiallyButton>
                         <TertiallyButton @click="deleteDepartment(department.id)">Delete</TertiallyButton>
                     </div>
                 </td>

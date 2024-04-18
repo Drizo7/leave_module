@@ -43,7 +43,7 @@ function deleteLeavetype(id) {
         <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
           <div class="bg-white shadow-md rounded-lg overflow-hidden">
             <div class="flex justify-end p-2">
-              <TertiallyButton :href="route('admin.leavetypes.create')">Create leavetype</TertiallyButton>
+              <TertiallyButton :href="route('normaladmin.leavetypes.create')">Create leavetype</TertiallyButton>
             </div>
             <div class="overflow-x-auto">
                 <table class="table-auto w-full border-collapse bg-white shadow-md">
@@ -60,7 +60,7 @@ function deleteLeavetype(id) {
                 <td class="px-6 py-4">{{ leavetype.description }}</td>
                 <td class="flex justify-end mr-2 py-4" >
                     <div class="flex space-x-2">
-                        <TertiallyButton :href="route('normaladmin.adminleavetypes.edit', leavetype.id)">Edit</TertiallyButton>
+                        <TertiallyButton :href="route('normaladmin.leavetypes.edit', leavetype.id)">Edit</TertiallyButton>
                         <TertiallyButton @click="deleteLeavetype(leavetype.id)">Delete</TertiallyButton>
                     </div>
                 </td>

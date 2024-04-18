@@ -51,4 +51,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chirp::class);
     }
+    public function employeeLeaves()
+    {
+        return $this->hasMany(EmployeeLeave::class);
+    }
 }
