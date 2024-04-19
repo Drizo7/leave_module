@@ -43,35 +43,38 @@ function deleteDepartment(id) {
     <div class="py-8">
       <div class="max-w-6xl sm:px-3 lg:px-8">
         <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
-          <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            <div class="flex justify-end p-2">
-              <TertiallyButton :href="route('admin.departments.create')">Create department</TertiallyButton>
-            </div>
+          <div class="flex items-center justify-between py-2">
+              <h2 class="text-lg font-medium text-gray-900 mb-4">All Departments</h2>
+              <div class="flex items-center">
+                  <TertiallyButton :href="route('admin.departments.create')">Create department</TertiallyButton>
+              </div>
+          </div>
+          <div class="overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="table-auto w-full border-collapse bg-white shadow-md">
-        <thead>
-            <tr class="bg-gray-100">
-                <th class="px-6 py-3 text-left">Name</th>
-                <th class="px-6 py-3 text-left">Code</th>
-                <th class="px-6 py-3 text-left">Hod</th>
-                <th class="px-6 py-3 mr-4 text-right">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(department, index) in departments" :key="index" class="border-b hover:bg-gray-50">
-                <td class="px-6 py-4">{{ department.name }}</td>
-                <td class="px-6 py-4">{{ department.shortcode }}</td>
-                <td class="px-6 py-4">{{ department.hod }}</td>
-                <td class="flex justify-end mr-2 py-4" >
-                    <div class="flex space-x-2">
-                        <EditButton :href="route('admin.departments.edit', department.id)">Edit</EditButton>
-                        <DeleteButton @click="deleteDepartment(department.id)">Delete</DeleteButton>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-            </div>
+                <thead>
+                    <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                        <th class="px-4 py-2 text-left">Name</th>
+                        <th class="px-4 py-2 text-left">Code</th>
+                        <th class="px-4 py-2 text-left">Hod</th>
+                        <th class="px-4 py-2 mr-4 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(department, index) in departments" :key="index" class="border-b hover:bg-gray-50 text-sm">
+                        <td class="px-4 py-2">{{ department.name }}</td>
+                        <td class="px-4 py-2">{{ department.shortcode }}</td>
+                        <td class="px-4 py-2">{{ department.hod }}</td>
+                        <td class="flex justify-end mr-2 py-2" >
+                            <div class="flex space-x-2">
+                              <EditButton :href="route('admin.departments.edit', department.id)">Edit</EditButton>
+                              <DeleteButton @click="deleteDepartment(department.id)">Delete</DeleteButton>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
           </div>
         </div>
       </div>

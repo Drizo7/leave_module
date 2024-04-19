@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import AdminLayout from '@/Layouts/AdminLayout.vue';
+import SuperAdminLayout from '@/Layouts/SuperAdminLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import ViewButton from '@/Components/ViewButton.vue';
 
@@ -60,7 +60,7 @@ const sortBy = (column) => {
 
 <template>
   <Head title="Leave History" />
-  <AdminLayout>
+  <SuperAdminLayout>
     <div class="py-8">
       <div class="max-w-6xl sm:px-3 lg:px-8">
         <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
@@ -138,5 +138,5 @@ const sortBy = (column) => {
         </div>
       </div>
     </div>
-  </AdminLayout>
+  </SuperAdminLayout>
 </template>

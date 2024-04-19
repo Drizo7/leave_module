@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Leave;
+use App\Models\AdminLeave;
 use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\Inertia;
@@ -13,57 +13,82 @@ class LeaveController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
-    }
+        $leaves = AdminLeave::with('employeeLeave.user', 'approver')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        \Log::info('Retrieved leaves:', $leaves->toArray());
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+            return Inertia::render('SuperAdmin/Leave/Index', [
+                'leaves' => $leaves->toArray(),
+                'pageName' => 'Leave Requests',
+            ]);
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param  \App\Models\AdminLeave  $adminLeave
+     * @return \Inertia\Response
      */
-    public function show(Leave $leave)
+    public function show(AdminLeave $adminLeave)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Leave $leave)
-    {
-        //
+        return Inertia::render('SuperAdmin/LeaveShow', [
+            'leave' => $adminLeave->load('employee', 'approver')->toArray(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\AdminLeave  $adminLeave
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Leave $leave)
+    public function update(Request $request, AdminLeave $adminLeave)
     {
-        //
+        $validatedData = $request->validate([
+            'status' => 'required|in:pending,approved,rejected',
+            'approver_id' => 'required|exists:users,id',
+        ]);
+
+        $adminLeave->update($validatedData);
+
+        return redirect()->route('admin.leaves.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Approve the specified leave request.
+     *
+     * @param  \App\Models\AdminLeave  $adminLeave
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Leave $leave)
+    public function approve(AdminLeave $adminLeave)
     {
-        //
+        $adminLeave->update([
+            'status' => 'approved',
+            'approver_id' => Auth::id(),
+        ]);
+
+        return redirect()->route('admin.leaves.index');
+    }
+
+    /**
+     * Reject the specified leave request.
+     *
+     * @param  \App\Models\AdminLeave  $adminLeave
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reject(AdminLeave $adminLeave)
+    {
+        $adminLeave->update([
+            'status' => 'rejected',
+            'approver_id' => Auth::id(),
+        ]);
+
+        return redirect()->route('admin.leaves.index');
     }
 }

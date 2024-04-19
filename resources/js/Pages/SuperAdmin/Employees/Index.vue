@@ -39,25 +39,25 @@ function deleteUser(id) {
 <template>
   <Head title="Users" />
   <SuperAdminLayout>
-    <div class="py-8">
+      <div class="py-8">
       <div class="max-w-6xl sm:px-3 lg:px-8">
         <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
-          <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            
+          <h2 class="text-lg font-medium text-gray-900 mb-4">All Employees</h2>
+          <div class="overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="table-auto w-full border-collapse bg-white shadow-md">
                     <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-6 py-3 text-left">Name</th>
-                            <th class="px-6 py-3 text-left">Email</th>
-                            <th class="px-6 py-3 mr-4 text-right">Actions</th>
+                        <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                            <th class="px-4 py-2 text-left">Name</th>
+                            <th class="px-4 py-2 text-left">Email</th>
+                            <th class="px-4 py-2 mr-4 text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(user, index) in users" :key="index" class="border-b hover:bg-gray-50">
-                            <td class="px-6 py-4">{{ user.name }}</td>
-                            <td class="px-6 py-4">{{ user.email }}</td>
-                            <td class="flex justify-end mr-2 py-4" >
+                        <tr v-for="(user, index) in users" :key="index" class="border-b hover:bg-gray-50 text-sm">
+                            <td class="px-4 py-2">{{ user.name }}</td>
+                            <td class="px-4 py-2">{{ user.email }}</td>
+                            <td class="flex justify-end mr-2 py-2" >
                                 <div class="flex space-x-2">
                                     <AssignButton :href="route('admin.users.show', user.id)">Assign Role</AssignButton>
                                     <DeleteButton @click="deleteUser(user.id)">Delete</DeleteButton>

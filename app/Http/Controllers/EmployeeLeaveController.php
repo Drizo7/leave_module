@@ -21,6 +21,7 @@ class EmployeeLeaveController extends Controller
 
         return Inertia::render('Leave/Index', [
             'leaves' => $leaves->toArray(),
+            'pageName' => 'Leave Requests',
         ]);
     }
 
@@ -31,7 +32,9 @@ class EmployeeLeaveController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Leave/Apply');
+        return Inertia::render('Leave/Apply', [
+            'pageName' => 'Apply for Leave',
+        ]);
     }
 
     /**

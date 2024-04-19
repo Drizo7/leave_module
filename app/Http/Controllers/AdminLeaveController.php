@@ -16,9 +16,13 @@ class AdminLeaveController extends Controller
      */
     public function index()
     {
-        $leaves = AdminLeave::with('employeeLeave.user')->get();
+        $leaves = AdminLeave::with('employeeLeave.user', 'approver')->get();
+
+        \Log::info('Retrieved leaves:', $leaves->toArray());
+
             return Inertia::render('Admin/Leave/Index', [
                 'leaves' => $leaves->toArray(),
+                'pageName' => 'Leave Requests',
             ]);
     }
 

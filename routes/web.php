@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminLeavetypeController;
 use App\Http\Controllers\SuperAdmin\DepartmentController;
 use App\Http\Controllers\SuperAdmin\UserController;
+use App\Http\Controllers\SuperAdmin\LeaveController;
 use App\Http\Controllers\SuperAdmin\LeavetypeController;
 use App\Http\Controllers\SuperAdmin\PermissionController;
 use App\Http\Controllers\SuperAdmin\RoleController;
@@ -83,6 +84,10 @@ Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->group(function() {
         Route::get('/', [IndexController::class, 'index'])->name('index');
+        Route::resource('leaves', LeaveController::class);
+        Route::post('leaves/{adminLeave}/approve', [LeaveController::class, 'approve'])->name('superadmin-leaves.approve');
+        Route::post('leaves/{adminLeave}/reject', [LeaveController::class, 'reject'])->name('superadmin-leaves.reject');
+
         Route::resource('roles', RoleController::class)->names([
             'index' => 'roles.index',
             'create' => 'roles.create',

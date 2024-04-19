@@ -17,10 +17,12 @@ class AdminIndexController extends Controller
         $totalEmployees = User::count();
         $totalDepartments = Department::count();
         $totalLeavtypes = Leavetype::count();
+        $users = User::all();
         return Inertia::render('Admin/Dashboard', [
             'pageName' => 'Admin Dashboard',
             'totalEmployees' => $totalEmployees,
             'totalDepartments' => $totalDepartments,
-            'totalLeavetypes' => $totalLeavtypes,]);
+            'totalLeavetypes' => $totalLeavtypes,
+            'users' => $users,]);
     }
 }
