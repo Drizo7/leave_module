@@ -1,7 +1,8 @@
 <script setup>
 import { Head, useForm, usePage, Link } from '@inertiajs/vue3';
 import SuperAdminLayout from '@/Layouts/SuperAdminLayout.vue';
-import TertiallyButton from '@/Components/TertiallyButton.vue';
+import DeleteButton from '@/Components/DangerButton.vue';
+import AssignButton from '@/Components/SuccessButton.vue';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -58,8 +59,8 @@ function deleteUser(id) {
                             <td class="px-6 py-4">{{ user.email }}</td>
                             <td class="flex justify-end mr-2 py-4" >
                                 <div class="flex space-x-2">
-                                    <TertiallyButton :href="route('admin.users.show', user.id)">Roles</TertiallyButton>
-                                    <TertiallyButton @click="deleteUser(user.id)">Delete</TertiallyButton>
+                                    <AssignButton :href="route('admin.users.show', user.id)">Assign Role</AssignButton>
+                                    <DeleteButton @click="deleteUser(user.id)">Delete</DeleteButton>
                                 </div>
                             </td>
                         </tr>

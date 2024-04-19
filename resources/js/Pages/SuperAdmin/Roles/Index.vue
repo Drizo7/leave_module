@@ -2,6 +2,8 @@
 import { Head, useForm, usePage, Link } from '@inertiajs/vue3';
 import SuperAdminLayout from '@/Layouts/SuperAdminLayout.vue';
 import TertiallyButton from '@/Components/TertiallyButton.vue';
+import DeleteButton from '@/Components/DangerButton.vue';
+import EditButton from '@/Components/SecondaryButton.vue'
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -53,12 +55,12 @@ function deleteRole(id) {
               </thead>
               <tbody>
                 <tr v-for="(role, index) in roles" :key="index" class="border-b">
-                  <td>{{ role.name }}</td>
+                  <td class="px-4 py-2 text-black">{{ role.name }}</td>
                   <td>
-                    <div class="flex justify-end">
+                    <div class="flex justify-end px-4 py-2">
                       <div class="space-x-2">
-                        <TertiallyButton :href="route('admin.roles.edit', role.id)">Edit</TertiallyButton>
-                        <TertiallyButton @click="deleteRole(role.id)">Delete</TertiallyButton>
+                        <EditButton :href="route('admin.roles.edit', role.id)">Edit</EditButton>
+                        <DeleteButton @click="deleteRole(role.id)">Delete</DeleteButton>
                       </div>
                     </div>
                   </td>

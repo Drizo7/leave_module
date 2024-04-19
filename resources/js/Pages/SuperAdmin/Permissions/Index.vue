@@ -2,6 +2,8 @@
 import { Head, useForm, usePage, Link } from '@inertiajs/vue3';
 import SuperAdminLayout from '@/Layouts/SuperAdminLayout.vue';
 import TertiallyButton from '@/Components/TertiallyButton.vue';
+import DeleteButton from '@/Components/DangerButton.vue';
+import EditButton from '@/Components/SecondaryButton.vue';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -56,12 +58,12 @@ function deletePermission(id) {
                             </thead>
                             <tbody>
                                 <tr v-for="(permission, index) in permissions" :key="index" class="border-b">
-                                    <td>{{ permission.name }}</td>
+                                    <td class="px-4 py-2 text-black">{{ permission.name }}</td>
                                     <td>
-                                        <div class="flex justify-end">
+                                        <div class="flex justify-end px-4 py-2">
                                             <div class="space-x-2">
-                                                <TertiallyButton :href="route('admin.permissions.edit', permission.id)">Edit</TertiallyButton>
-                                                <TertiallyButton @click="deletePermission(permission.id)">Delete</TertiallyButton>
+                                                <EditButton :href="route('admin.permissions.edit', permission.id)">Edit</EditButton>
+                                                <DeleteButton @click="deletePermission(permission.id)">Delete</DeleteButton>
                                             </div>
                                         </div>    
                                     </td>

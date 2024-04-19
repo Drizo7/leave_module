@@ -2,6 +2,8 @@
 import { Head, useForm, usePage, Link } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import TertiallyButton from '@/Components/TertiallyButton.vue';
+import EditButton from '@/Components/SecondaryButton.vue';
+import DeleteButton from '@/Components/DangerButton.vue';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -60,8 +62,8 @@ function deleteLeavetype(id) {
                 <td class="px-6 py-4">{{ leavetype.description }}</td>
                 <td class="flex justify-end mr-2 py-4" >
                     <div class="flex space-x-2">
-                        <TertiallyButton :href="route('normaladmin.leavetypes.edit', leavetype.id)">Edit</TertiallyButton>
-                        <TertiallyButton @click="deleteLeavetype(leavetype.id)">Delete</TertiallyButton>
+                        <EditButton :href="route('normaladmin.leavetypes.edit', leavetype.id)">Edit</EditButton>
+                        <DeleteButton @click="deleteLeavetype(leavetype.id)">Delete</DeleteButton>
                     </div>
                 </td>
             </tr>

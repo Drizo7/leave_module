@@ -101,29 +101,6 @@ const getSeverity = (status) => {
                     
                         <div class="flex flex-col gap-6 mb-8 ml-4">
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                            <div class="flex items-center">
-                                <div class="w-10 h-24 bg-purple-500 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
-                                <div class="ml-8">
-                                <p class="text-lg">Total Employees</p>
-                                <p class="text-4xl font-semi-bold">42</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center">
-                                <div class="w-10 h-24 bg-blue-500 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
-                                <div class="ml-8">
-                                <p class="text-lg">Departments</p>
-                                <p class="text-4xl font-semi-bold">8</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center">
-                                <div class="w-10 h-24 bg-orange-400 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
-                                <div class="ml-8">
-                                <p class="text-lg">Leave Types</p>
-                                <p class="text-4xl font-semi-bold">3</p>
-                                </div>
-                            </div>
 
                             <div class="flex items-center">
                                 <div class="w-10 h-24 bg-yellow-400 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>

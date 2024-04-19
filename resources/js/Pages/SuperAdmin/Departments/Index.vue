@@ -2,6 +2,8 @@
 import { Head, useForm, usePage, Link } from '@inertiajs/vue3';
 import SuperAdminLayout from '@/Layouts/SuperAdminLayout.vue';
 import TertiallyButton from '@/Components/TertiallyButton.vue';
+import DeleteButton from '@/Components/DangerButton.vue';
+import EditButton from '@/Components/SecondaryButton.vue';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -62,8 +64,8 @@ function deleteDepartment(id) {
                 <td class="px-6 py-4">{{ department.hod }}</td>
                 <td class="flex justify-end mr-2 py-4" >
                     <div class="flex space-x-2">
-                        <TertiallyButton :href="route('admin.departments.edit', department.id)">Edit</TertiallyButton>
-                        <TertiallyButton @click="deleteDepartment(department.id)">Delete</TertiallyButton>
+                        <EditButton :href="route('admin.departments.edit', department.id)">Edit</EditButton>
+                        <DeleteButton @click="deleteDepartment(department.id)">Delete</DeleteButton>
                     </div>
                 </td>
             </tr>
