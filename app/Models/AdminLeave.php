@@ -17,11 +17,12 @@ class AdminLeave extends Model
         'reason',
         'status',
         'approver_id',
+        'leave_id',
     ];
     
     public function employeeLeave()
     {
-        return $this->belongsTo(EmployeeLeave::class);
+        return $this->belongsTo(EmployeeLeave::class, 'leave_id');
     }
 
     public function employee()

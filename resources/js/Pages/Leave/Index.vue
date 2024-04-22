@@ -62,7 +62,7 @@ const sortBy = (column) => {
   <AuthenticatedLayout>
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+        <div class="p-4 sm:p-8 bg-white border border-gray-300 sm:rounded-lg">
           <section>
             <header class="flex justify-between items-center mb-4">
               <h2 class="text-lg font-medium text-gray-900">Leave History</h2>
@@ -75,11 +75,12 @@ const sortBy = (column) => {
                 />
               </div>
             </header>
+            <div class="overflow-x-auto">
             <table class="w-full table-auto">
               <thead>
                 <tr>
                   <th
-                    v-for="(column, index) in ['type', 'start_date', 'end_date', 'reason']"
+                    v-for="(column, index) in ['id','type', 'start_date', 'end_date', 'reason', 'status']"
                     :key="index"
                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                     @click="sortBy(column)"
@@ -99,13 +100,16 @@ const sortBy = (column) => {
               </thead>
               <tbody>
                 <tr v-for="leave in filteredLeaves" :key="leave.id" class="bg-white border-b">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ leave.id }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ leave.type }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ leave.start_date }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ leave.end_date }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ leave.reason }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ leave.status }}</td>
                 </tr>
               </tbody>
             </table>
+            </div>
             <div class="flex justify-between items-center mt-4">
               <div>Showing {{ (currentPage - 1) * perPage + 1 }} to {{ Math.min(currentPage * perPage, props.leaves.length) }} of {{ props.leaves.length }} entries</div>
               <div class="flex items-center">

@@ -4,87 +4,59 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import { ref, onMounted } from 'vue';
-import { CustomerService } from '@/service/Employee';
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { ref, computed } from 'vue';
 
-const customers = ref();
-const selectedCustomers = ref();
-const filters = ref();
-const representatives = ref([
-    { name: 'Amy Elsner', image: 'amyelsner.png' },
-    { name: 'Anna Fali', image: 'annafali.png' },
-    { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-    { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-    { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-    { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-    { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-    { name: 'Onyama Limba', image: 'onyamalimba.png' },
-    { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-    { name: 'XuXue Feng', image: 'xuxuefeng.png' }
-]);
-const statuses = ref(['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal']);
-
-onMounted(() => {
-    CustomerService.getCustomersLarge().then((data) => {
-        customers.value = getCustomers(data);
-    });
+const props = defineProps({
+  leaves: {
+    type: Array,
+    required: true,
+  },
 });
 
+const perPage = 10;
+const currentPage = ref(1);
+const search = ref('');
+const sortColumn = ref('');
+const sortDirection = ref('asc');
 
-const initFilters = () => {
-    filters.value = {
-        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        representative: { value: null, matchMode: FilterMatchMode.IN },
-        date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
-        balance: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-        status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-        activity: { value: [0, 100], matchMode: FilterMatchMode.BETWEEN },
-        verified: { value: null, matchMode: FilterMatchMode.EQUALS }
-    };
-};
+const filteredLeaves = computed(() => {
+  let filtered = props.leaves.filter((leave) =>
+    leave.type.toLowerCase().includes(search.value.toLowerCase())
+  );
 
-initFilters();
-
-const formatDate = (value) => {
-    return value.toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
+  if (sortColumn.value) {
+    filtered = filtered.sort((a, b) => {
+      const modifier = sortDirection.value === 'asc' ? 1 : -1;
+      if (a[sortColumn.value] < b[sortColumn.value]) return -1 * modifier;
+      if (a[sortColumn.value] > b[sortColumn.value]) return 1 * modifier;
+      return 0;
     });
+  }
+
+  return filtered.slice((currentPage.value - 1) * perPage, currentPage.value * perPage);
+});
+
+const totalPages = computed(() => Math.ceil(props.leaves.length / perPage));
+
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
 };
-const formatCurrency = (value) => {
-    return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+  }
 };
-const clearFilter = () => {
-    initFilters();
-};
-const getCustomers = (data) => {
-    return [...(data || [])].map((d) => {
-        d.date = new Date(d.date);
 
-        return d;
-    });
-};
-const getSeverity = (status) => {
-    switch (status) {
-        case 'unqualified':
-            return 'danger';
-
-        case 'qualified':
-            return 'success';
-
-        case 'new':
-            return 'info';
-
-        case 'negotiation':
-            return 'warning';
-
-        case 'renewal':
-            return null;
-    }
+const sortBy = (column) => {
+  if (sortColumn.value === column) {
+    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+  } else {
+    sortColumn.value = column;
+    sortDirection.value = 'asc';
+  }
 };
 </script>
 
@@ -93,10 +65,6 @@ const getSeverity = (status) => {
     <AuthenticatedLayout>
         <div class="py-8">
             <div class="max-w-6xl sm:px-3 lg:px-8">
-                <!-- an inner page name -->
-                <!-- div class="bg-white border border-gray-300 rounded-lg mb-8 flex justify-between items-center h-8">
-                    <span class="ml-8 hover:text-gray-700">Home / {{ $page.props.pageName }}</span>
-            </div> -->
                 <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
                     
                         <div class="flex flex-col gap-6 mb-8 ml-4">
@@ -128,58 +96,74 @@ const getSeverity = (status) => {
                             </div>
 
                         </div>
-                        <DataTable v-model:filters="filters" v-model:selection="selectedCustomers" :value="customers" paginator :rows="10" dataKey="id" filterDisplay="menu"
-                        :globalFilterFields="['name', 'country.name', 'representative.name', 'balance', 'status']">
-                        <template #empty> No customers found. </template>
-                        <!-- <Column selectionMode="multiple" headerStyle="width: 3rem"></Column> -->
-                        <Column field="name" header="ID" sortable style="min-width: 10rem; font-size: 0.75rem">
-                            <template #body="{ data }">
-                                {{ data.name }}
-                            </template>
-                            <template #filter="{ filterModel }">
-                                <InputText v-model="filterModel.value" type="text" class="p-column-filter" placeholder="Search by name" />
-                            </template>
-                        </Column>
-                        <Column header="Full Name" sortable sortField="country.name" filterField="country.name" style="min-width: 10rem; font-size: 0.75rem">
-                            <template #body="{ data }">
-                                <div class="flex items-center gap-2">
-                                    <span>{{ data.country.name }}</span>
-                                </div>
-                            </template>
-                            <template #filter="{ filterModel }">
-                                <InputText v-model="filterModel.value" type="text" class="p-column-filter" placeholder="Search by country" />
-                            </template>
-                        </Column>
-                        <Column header="Role" sortable sortField="representative.name" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }" style="min-width: 10rem ; font-size: 0.75rem">
-                            <template #body="{ data }">
-                                <div class="flex items-center gap-2">
-                                    <span>{{ data.representative.name }}</span>
-                                </div>
-                            </template>
-                            <template #filter="{ filterModel }">
-                                <MultiSelect v-model="filterModel.value" :options="representatives" optionLabel="name" placeholder="Any" class="p-column-filter">
-                                    <template #option="slotProps">
-                                        <div class="flex items-center gap-2">
-                                            <span>{{ slotProps.option.name }}</span>
-                                        </div>
-                                    </template>
-                                </MultiSelect>
-                            </template>
-                        </Column>
-                        <Column field="date" header="Date Joined" sortable filterField="date" dataType="date" style="min-width: 8rem; font-size: 0.75rem">
-                            <template #body="{ data }">
-                                {{ formatDate(data.date) }}
-                            </template>
-                            <template #filter="{ filterModel }">
-                                <Calendar v-model="filterModel.value" dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" mask="99/99/9999" />
-                            </template>
-                        </Column>
-                        <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center; overflow: visible">
-                            <template #body>
-                                <Button type="button" icon="pi pi-cog" rounded />
-                            </template>
-                        </Column>
-                    </DataTable>
+                        <section>
+    <header class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-medium text-gray-900">Leave History</h2>
+        <div class="flex items-center">
+            <input
+                v-model="search"
+                type="text"
+                placeholder="Search..."
+                class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full sm:w-auto"
+            />
+        </div>
+    </header>
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto">
+            <thead>
+                <tr>
+                    <th
+                        v-for="(column, index) in ['id','type', 'start_date', 'end_date', 'reason', 'status']"
+                        :key="index"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                        @click="sortBy(column)"
+                    >
+                        {{ column }}
+                        <span v-if="sortColumn === column" :class="[sortDirection === 'asc' ? 'rotate-0' : 'rotate-180']">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 inline-block">
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="leave in filteredLeaves" :key="leave.id" class="bg-white border-b">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ leave.id }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ leave.type }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ leave.start_date }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ leave.end_date }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ leave.reason }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ leave.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="flex justify-between items-center mt-4">
+        <div>Showing {{ (currentPage - 1) * perPage + 1 }} to {{ Math.min(currentPage * perPage, props.leaves.length) }} of {{ props.leaves.length }} entries</div>
+        <div class="flex items-center">
+            <button
+                :disabled="currentPage === 1"
+                @click="prevPage"
+                class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+            >
+                Previous
+            </button>
+            <button
+                :disabled="currentPage === totalPages"
+                @click="nextPage"
+                class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow ml-2"
+            >
+                Next
+            </button>
+        </div>
+    </div>
+</section>
+
                 </div>
             </div>
         </div>

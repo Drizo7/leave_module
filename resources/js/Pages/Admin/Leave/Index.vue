@@ -76,11 +76,12 @@ const sortBy = (column) => {
                 />
               </div>
             </header>
+            <div class="overflow-x-auto">
             <table class="w-full table-auto">
               <thead>
                 <tr>
                   <th
-                    v-for="(column, index) in ['Employee id', 'type', 'start date', 'end date', 'reason', 'status','action']"
+                    v-for="(column, index) in ['Id','Employee id', 'type', 'start date', 'end date', 'reason', 'status','action']"
                     :key="index"
                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                     @click="sortBy(column)"
@@ -100,6 +101,7 @@ const sortBy = (column) => {
               </thead>
               <tbody>
                 <tr v-for="leave in leaves" :key="leave.id" class="bg-white border-b">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ leave.id }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ leave.employee_id }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ leave.type }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">{{ leave.start_date }}</td>
@@ -108,13 +110,14 @@ const sortBy = (column) => {
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ leave.status }}</td>
                   <td class="flex justify-end mr-2 py-2" >
                       <div class="flex items-center">
-                      <ViewButton >View</ViewButton>
+                      <ViewButton :href="route('normaladmin.admin-leaves.show', leave.id )">View</ViewButton>
                       </div>
                   </td>
                   <!-- Add any other fields from the admin_leaves table -->
                 </tr>
               </tbody>
             </table>
+            </div>
             <div class="flex justify-between items-center mt-4">
               <div>Showing {{ (currentPage - 1) * perPage + 1 }} to {{ Math.min(currentPage * perPage, props.leaves.length) }} of {{ props.leaves.length }} entries</div>
               <div class="flex items-center">

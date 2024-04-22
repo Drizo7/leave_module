@@ -52,28 +52,28 @@ function deleteDepartment(id) {
           <div class="overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="table-auto w-full border-collapse bg-white shadow-md">
-        <thead>
-            <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
-                <th class="px-4 py-2 text-left">Name</th>
-                <th class="px-4 py-2 text-left">Code</th>
-                <th class="px-4 py-2 text-left">Hod</th>
-                <th class="px-4 py-2 mr-4 text-right">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(department, index) in departments" :key="index" class="border-b hover:bg-gray-50 text-sm">
-                <td class="px-4 py-2">{{ department.name }}</td>
-                <td class="px-4 py-2">{{ department.shortcode }}</td>
-                <td class="px-4 py-2">{{ department.hod }}</td>
-                <td class="flex justify-end mr-2 py-2" >
-                    <div class="flex space-x-2">
-                        <EditButton :href="route('normaladmin.departments.edit', department.id)">Edit</EditButton>
-                        <DeleteButton @click="deleteDepartment(department.id)">Delete</DeleteButton>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                  <thead>
+                      <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                          <th class="px-4 py-2 text-left">Id</th>
+                          <th class="px-4 py-2 text-left">Name</th>
+                          <th class="px-4 py-2 text-left">Short Code</th>
+                          <th class="px-4 py-2 mr-4 text-right">Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr v-for="(department, index) in departments" :key="index" class="border-b hover:bg-gray-50 text-sm">
+                          <td class="px-4 py-2">{{ department.id }}</td>
+                          <td class="px-4 py-2">{{ department.name }}</td>
+                          <td class="px-4 py-2">{{ department.shortcode }}</td>
+                          <td class="flex justify-end mr-2 py-2" >
+                              <div class="flex space-x-2">
+                                  <EditButton :href="route('normaladmin.departments.edit', department.id)">Edit</EditButton>
+                                  <DeleteButton @click="deleteDepartment(department.id)">Delete</DeleteButton>
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
             </div>
           </div>
         </div>

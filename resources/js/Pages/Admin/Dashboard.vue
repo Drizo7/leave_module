@@ -90,12 +90,14 @@ const users = ref(pageProps.users || []);
                             <table class="table-auto w-full border-collapse bg-white shadow-md">
                                 <thead>
                                     <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                        <th class="px-4 py-2 text-left">Id</th>
                                         <th class="px-4 py-2 text-left">Name</th>
                                         <th class="px-4 py-2 text-left">Email</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(user, index) in users" :key="index" class="border-b hover:bg-gray-50 text-sm">
+                                        <td class="px-4 py-2">{{ user.id }}</td>
                                         <td class="px-4 py-2">{{ user.name }}</td>
                                         <td class="px-4 py-2">{{ user.email }}</td>
                                     </tr>

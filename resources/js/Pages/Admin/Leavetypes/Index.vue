@@ -53,28 +53,28 @@ function deleteLeavetype(id) {
             
             <div class="overflow-x-auto">
                 <table class="table-auto w-full border-collapse bg-white shadow-md">
-        <thead>
-            <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointere">
-              <th class="px-4 py-2 text-left">Id</th>
-                <th class="px-4 py-2 text-left">Name</th>
-                <th class="px-4 py-2 text-left">Description</th>
-                <th class="px-4 py-2 mr-4 text-right">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(leavetype, index) in leavetypes" :key="index" class="border-b hover:bg-gray-50 text-sm">
-                <td class="px-4 py-2">{{ leavetype.id }}</td>
-                <td class="px-4 py-2">{{ leavetype.name }}</td>
-                <td class="px-4 py-2">{{ leavetype.description }}</td>
-                <td class="flex justify-end mr-2 py-2" >
-                    <div class="flex space-x-2">
-                        <EditButton :href="route('normaladmin.leavetypes.edit', leavetype.id)">Edit</EditButton>
-                        <DeleteButton @click="deleteLeavetype(leavetype.id)">Delete</DeleteButton>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                  <thead>
+                      <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointere">
+                        <th class="px-4 py-2 text-left">Id</th>
+                          <th class="px-4 py-2 text-left">Name</th>
+                          <th class="px-4 py-2 text-left">Description</th>
+                          <th class="px-4 py-2 mr-4 text-right">Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr v-for="(leavetype, index) in leavetypes" :key="index" class="border-b hover:bg-gray-50 text-sm">
+                          <td class="px-4 py-2">{{ leavetype.id }}</td>
+                          <td class="px-4 py-2">{{ leavetype.name }}</td>
+                          <td class="px-4 py-2">{{ leavetype.description }}</td>
+                          <td class="flex justify-end mr-2 py-2" >
+                              <div class="flex space-x-2">
+                                  <EditButton :href="route('normaladmin.leavetypes.edit', leavetype.id)">Edit</EditButton>
+                                  <DeleteButton @click="deleteLeavetype(leavetype.id)">Delete</DeleteButton>
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -76,6 +76,7 @@ const sortBy = (column) => {
                 />
               </div>
             </header>
+            <div class="overflow-x-auto">
             <table class="w-full table-auto">
               <thead>
                 <tr>
@@ -115,6 +116,7 @@ const sortBy = (column) => {
                 </tr>
               </tbody>
             </table>
+            </div>
             <div class="flex justify-between items-center mt-4">
               <div>Showing {{ (currentPage - 1) * perPage + 1 }} to {{ Math.min(currentPage * perPage, props.leaves.length) }} of {{ props.leaves.length }} entries</div>
               <div class="flex items-center">

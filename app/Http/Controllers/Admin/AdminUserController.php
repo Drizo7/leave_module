@@ -24,10 +24,10 @@ class AdminUserController extends Controller
 
     public function show(User $user)
     {
-        return Inertia::render('Admin/Employees/Roles', [
-            'user' => $user->load('roles', 'permissions'),
-            'roles' => Role::all(),
-            'permissions' => Permission::all(),
+        \Log::info('Retrieved user:', $user->toArray());
+
+        return Inertia::render('Admin/Employees/Show', [
+            'user' => $user->toArray(),
         ]);
     }
 

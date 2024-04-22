@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('admin_leaves', function (Blueprint $table) {
             $table->id();
+            $table->string('leave_id')->unique()->after('id');
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('type');

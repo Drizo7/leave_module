@@ -18,6 +18,7 @@ use App\Http\Controllers\SuperAdmin\PermissionController;
 use App\Http\Controllers\SuperAdmin\RoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -30,8 +31,11 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    $leaves = Auth::user()->employeeLeaves()->get();
+
     return Inertia::render('Dashboard', [
-        'pageName' => 'Dashboard',
+        'leaves' => $leaves->toArray(),
+        'pageName' => 'Leave Requests',
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -49,7 +53,8 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('leaves', AdminLeaveController::class);
         Route::post('leaves/{adminLeave}/approve', [AdminLeaveController::class, 'approve'])->name('admin-leaves.approve');
         Route::post('leaves/{adminLeave}/reject', [AdminLeaveController::class, 'reject'])->name('admin-leaves.reject');
-
+        Route::get('/leaves/{leaf}', [AdminLeaveController::class, 'show'])->name('admin-leaves.show');
+        
         Route::resource('adminusers', AdminUserController::class)->names([
             'index' => 'users.index',
             'destroy' => 'users.destroy',

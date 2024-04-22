@@ -56,12 +56,15 @@ class EmployeeLeaveController extends Controller
         // Add the authenticated user's ID to the validated data
         $validatedData['user_id'] = Auth::id();
 
+        $validatedData['leave_id'] = EmployeeLeave::max('leave_id') + 1;
+
         // Create an EmployeeLeave record
         $employeeLeave = EmployeeLeave::create($validatedData);
 
         // Create an AdminLeave record corresponding to the EmployeeLeave
         AdminLeave::create([
             'employee_id' => $employeeLeave->user_id,
+            'leave_id' => $employeeLeave->id,
             'type' => $employeeLeave->type,
             'start_date' => $employeeLeave->start_date,
             'end_date' => $employeeLeave->end_date,

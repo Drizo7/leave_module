@@ -32,10 +32,12 @@ class AdminLeaveController extends Controller
      * @param  \App\Models\AdminLeave  $adminLeave
      * @return \Inertia\Response
      */
-    public function show(AdminLeave $adminLeave)
+    public function show(AdminLeave $leaf)
     {
-        return Inertia::render('Admin/LeaveShow', [
-            'leave' => $adminLeave->load('employee', 'approver')->toArray(),
+        /* \Log::info('The leave:', $leaf->toArray()); */
+        
+        return Inertia::render('Admin/Leave/LeaveDetails', [
+            'leave' => $leaf->toArray(),
         ]);
     }
 
@@ -71,6 +73,11 @@ class AdminLeaveController extends Controller
             'approver_id' => Auth::id(),
         ]);
 
+        // Update the corresponding EmployeeLeave record
+
+        $employeeLeave = $adminLeave->employeeLeave;
+        $employeeLeave->update(['status' => 'approved']);
+        
         return redirect()->route('normaladmin.leaves.index');
     }
 
@@ -86,6 +93,10 @@ class AdminLeaveController extends Controller
             'status' => 'rejected',
             'approver_id' => Auth::id(),
         ]);
+
+        // Update the corresponding EmployeeLeave record
+        $employeeLeave = $adminLeave->employeeLeave;
+        $employeeLeave->update(['status' => 'rejected']);
 
         return redirect()->route('normaladmin.leaves.index');
     }
