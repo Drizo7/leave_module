@@ -1,6 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import { ref, computed} from 'vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
@@ -9,11 +8,9 @@ import DepartmentsIcon from '@/Assets/department.png';
 import EmployeesIcon from '@/Assets/ph-users.png';
 import LeavetypesIcon from '@/Assets/leave.png';
 import AdminsettingsIcon from '@/Assets/settings.png';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
 import InputText from 'primevue/inputtext';
 import 'primeicons/primeicons.css'
-import axios from 'axios';
+
 
 const showingNavigationDropdown = ref(false);
 const value1 = ref('');
@@ -151,7 +148,6 @@ const toggleNavigation = () => {
       
        <!-- Main content -->
        <div class="lg:ml-48 mt-0 pt-16 pb-16 overflow-y-auto">
-        
           <!-- Page content -->
           
           

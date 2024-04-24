@@ -71,7 +71,7 @@ const sortBy = (column) => {
                 <input
                   v-model="search"
                   type="text"
-                  placeholder="Search..."
+                  placeholder="Search Leave..."
                   class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full sm:w-auto"
                 />
               </div>

@@ -21,6 +21,7 @@ class AdminDepartmentController extends Controller
         return Inertia::render('Admin/Departments/Index', [
             'pageName' => 'Departments ',
             'departments' => $departments,
+            'message' => session('message'),
         ]);
     }
 
@@ -47,7 +48,7 @@ class AdminDepartmentController extends Controller
  
         Department::create($validated);
  
-        return redirect(route('normaladmin.departments.index'));
+        return redirect()->route('normaladmin.departments.index')->with('message', 'Department created successfully!');
     }
 
     /**
@@ -88,6 +89,6 @@ class AdminDepartmentController extends Controller
         Gate::authorize('delete', $department);
 
         $department->delete();
-        return redirect()->route('normaladmin.departments.index');
+        return redirect()->route('normaladmin.departments.index')->with('message', 'Department deleted successfully.');
     }
 }
