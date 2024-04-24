@@ -22,6 +22,7 @@ class EmployeeLeaveController extends Controller
         return Inertia::render('Leave/Index', [
             'leaves' => $leaves->toArray(),
             'pageName' => 'Leave Requests',
+            'message' => session('message'),
         ]);
     }
 
@@ -73,7 +74,7 @@ class EmployeeLeaveController extends Controller
         ]);
 
         // Redirect the user to the index page for employee leaves
-        return redirect()->route('employee-leaves.index');
+        return redirect()->route('employee-leaves.index')->with('message', 'Leave was applied successfully.');
     }
 
 }

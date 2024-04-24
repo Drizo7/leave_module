@@ -18,6 +18,7 @@ class PermissionController extends Controller
         return Inertia::render('SuperAdmin/Permissions/Index', [
             'pageName' => 'Permissions',
             'permissions' => $permissions,
+            'message' => session('message'),
         ]);
     }
 
@@ -36,7 +37,7 @@ class PermissionController extends Controller
 
         $permission = Permission::create($validated);
 
-        return redirect()->route('admin.permissions.index')->with('message', 'Permission created.');
+        return redirect()->route('admin.permissions.index')->with('message', 'Permission was created successfullyd.');
     }
 
     public function edit(Permission $permission): Response
@@ -56,31 +57,31 @@ class PermissionController extends Controller
 
         $permission->update($validated);
 
-        return redirect()->route('admin.permissions.index')->with('message', 'Permission updated.');
+        return redirect()->route('admin.permissions.index')->with('message', 'Permission was updated successfully.');
     }
 
     public function destroy(Permission $permission): RedirectResponse
     {
         $permission->delete();
-        return back()->with('message', 'Permission deleted.');
+        return back()->with('message', 'Permission was deleted successfully.');
     }
 
     public function assignRole(Request $request, Permission $permission): RedirectResponse
     {
         if ($permission->hasRole($request->role)) {
-            return back()->with('message', 'Role exists.');
+            return back()->with('message', 'Role already exists.');
         }
 
         $permission->assignRole($request->role);
 
-        return back()->with('message', 'Role assigned.');
+        return back()->with('message', 'Role was assigned successfully.');
     }
 
     public function removeRole(Permission $permission, Role $role): RedirectResponse
     {
         if ($permission->hasRole($role)) {
             $permission->removeRole($role);
-            return back()->with('message', 'Role removed.');
+            return back()->with('message', 'Role was removed successfully.');
         }
 
         return back()->with('message', 'Role does not exist.');

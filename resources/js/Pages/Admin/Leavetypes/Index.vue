@@ -4,6 +4,7 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import TertiallyButton from '@/Components/TertiallyButton.vue';
 import EditButton from '@/Components/SecondaryButton.vue';
 import DeleteButton from '@/Components/DangerButton.vue';
+import DismissibleAlert from '@/Components/DismissibleAlert.vue';
 import { ref, computed } from 'vue';
 
 const props = defineProps({
@@ -14,6 +15,10 @@ const props = defineProps({
   leavetype: {
     type: Object,
     required: true,
+  },
+  message: {
+    type: String,
+    default: null,
   },
 });
 
@@ -91,6 +96,7 @@ function sortBy(column) {
   <Head title="Leavetypes" />
   <AdminLayout>
     <div class="py-8">
+      <dismissible-alert v-if="props.message" :message="props.message" />
       <div class="max-w-6xl sm:px-3 lg:px-8">
         <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
           <div class="flex items-center justify-between py-2">

@@ -1,12 +1,17 @@
 <script setup>
 import { ref, computed } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import DismissibleAlert from '@/Components/DismissibleAlert.vue';
 import { Head } from '@inertiajs/vue3';
 
 const props = defineProps({
   leaves: {
     type: Array,
     required: true,
+  },
+  message: {
+    type: String,
+    default: null,
   },
 });
 
@@ -61,6 +66,7 @@ const sortBy = (column) => {
   <Head title="Leave History" />
   <AuthenticatedLayout>
     <div class="py-12">
+      <dismissible-alert v-if="props.message" :message="props.message" />
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white border border-gray-300 sm:rounded-lg">
           <section>

@@ -20,6 +20,7 @@ class RoleController extends Controller
         return Inertia::render('SuperAdmin/Roles/Index', [
             'pageName' => 'Roles ',
             'roles' => $roles,
+            'message' => session('message'),
         ]);
     }
     
@@ -38,7 +39,7 @@ class RoleController extends Controller
  
         Role::create($validated);
  
-        return redirect(route('admin.roles.index'));
+        return redirect(route('admin.roles.index'))->with('message', 'Role was added successfully.');
     }
     
     public function edit(Role $role): Response
@@ -58,7 +59,7 @@ class RoleController extends Controller
 
         $role->update($validated);
 
-        return redirect()->route('admin.roles.index')->with('message', 'Role Updated successfully.');
+        return redirect()->route('admin.roles.index')->with('message', 'Role was updated successfully.');
     }
 
     public function destroy(Role $role): RedirectResponse
@@ -66,7 +67,7 @@ class RoleController extends Controller
         Gate::authorize('delete', $role);
 
         $role->delete();
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('admin.roles.index')->with('message', 'Role was deleted successfully.');
     }
 
     public function givePermission(Request $request, Role $role): RedirectResponse
@@ -74,13 +75,13 @@ class RoleController extends Controller
 
 
         if ($role->hasPermissionTo($request->permission)) {
-            return back()->with('message', 'Permission exists.');
+            return back()->with('message', 'Permission already exists.');
         }
 
         $role->givePermissionTo($request->permission);
 
 
-        return back()->with('message', 'Permission added.');
+        return back()->with('message', 'Permission was added successfully.');
     }
 
     public function revokePermission(Role $role, Permission $permission): RedirectResponse
@@ -88,10 +89,10 @@ class RoleController extends Controller
 
         if ($role->hasPermissionTo($permission)) {
             $role->revokePermissionTo($permission);
-            return back()->with('message', 'Permission revoked.');
+            return back()->with('message', 'Permission was revoked successfully.');
         }
 
-        return back()->with('message', 'Permission not exists.');
+        return back()->with('message', 'Permission does not exist.');
     }
 
 }

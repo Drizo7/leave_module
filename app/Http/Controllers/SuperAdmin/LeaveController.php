@@ -25,6 +25,7 @@ class LeaveController extends Controller
             return Inertia::render('SuperAdmin/Leave/Index', [
                 'leaves' => $leaves->toArray(),
                 'pageName' => 'Leave Requests',
+                'message' => session('message'),
             ]);
     }
 
@@ -57,7 +58,7 @@ class LeaveController extends Controller
 
         $adminLeave->update($validatedData);
 
-        return redirect()->route('admin.leaves.index');
+        return redirect()->route('admin.leaves.index')->with('message', 'Leave was updated successfully.');
     }
 
     /**
@@ -73,7 +74,7 @@ class LeaveController extends Controller
             'approver_id' => Auth::id(),
         ]);
 
-        return redirect()->route('admin.leaves.index');
+        return redirect()->route('admin.leaves.index')->with('message', 'Leave was approved successfully.');
     }
 
     /**
@@ -89,6 +90,6 @@ class LeaveController extends Controller
             'approver_id' => Auth::id(),
         ]);
 
-        return redirect()->route('admin.leaves.index');
+        return redirect()->route('admin.leaves.index')->with('message', 'Leave was rejected successfully.');
     }
 }

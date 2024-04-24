@@ -3,11 +3,16 @@ import { ref, computed } from 'vue';
 import SuperAdminLayout from '@/Layouts/SuperAdminLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import ViewButton from '@/Components/ViewButton.vue';
+import DismissibleAlert from '@/Components/DismissibleAlert.vue';
 
 const props = defineProps({
   leaves: {
     type: Array,
     required: true,
+  },
+  message: {
+    type: String,
+    default: null,
   },
 });
 
@@ -62,6 +67,7 @@ const sortBy = (column) => {
   <Head title="Leave History" />
   <SuperAdminLayout>
     <div class="py-8">
+      <dismissible-alert v-if="props.message" :message="props.message" />
       <div class="max-w-6xl sm:px-3 lg:px-8">
         <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
           <section>

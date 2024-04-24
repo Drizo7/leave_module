@@ -4,11 +4,18 @@ import { Head, useForm, usePage, Link } from '@inertiajs/vue3';
 import TertiallyButton from '@/Components/TertiallyButton.vue';
 import DeleteButton from '@/Components/DangerButton.vue';
 import EditButton from '@/Components/SecondaryButton.vue';
+import DismissibleAlert from '@/Components/DismissibleAlert.vue';
 import { ref, computed } from 'vue';
 
 const { props: pageProps, replace } = usePage();
 const departments = ref(pageProps.departments || []);
 
+const props = defineProps({
+  message: {
+    type: String,
+    default: null,
+  },
+});
 const form = useForm({});
 
 const search = ref('');
@@ -62,6 +69,7 @@ function sortBy(key) {
   <Head title="Departments" />
   <SuperAdminLayout>
     <div class="py-8">
+      <dismissible-alert v-if="props.message" :message="props.message" />
       <div class="max-w-6xl sm:px-3 lg:px-8">
         <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
           <!-- Search Bar -->

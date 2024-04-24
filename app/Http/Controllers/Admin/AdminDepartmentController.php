@@ -48,7 +48,7 @@ class AdminDepartmentController extends Controller
  
         Department::create($validated);
  
-        return redirect()->route('normaladmin.departments.index')->with('message', 'Department created successfully!');
+        return redirect()->route('normaladmin.departments.index')->with('message', 'Department was created successfully!');
     }
 
     /**
@@ -78,7 +78,7 @@ class AdminDepartmentController extends Controller
 
         $department->update($validated);
 
-        return redirect()->route('normaladmin.departments.index')->with('message', 'Department updated successfully.');
+        return redirect()->route('normaladmin.departments.index')->with('message', 'Department was updated successfully.');
     }
 
     /**
@@ -89,6 +89,6 @@ class AdminDepartmentController extends Controller
         Gate::authorize('delete', $department);
 
         $department->delete();
-        return redirect()->route('normaladmin.departments.index')->with('message', 'Department deleted successfully.');
+        return redirect()->route('normaladmin.departments.index')->with('message', 'Department was deleted successfully.');
     }
 }

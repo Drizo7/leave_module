@@ -23,6 +23,7 @@ class AdminLeaveController extends Controller
             return Inertia::render('Admin/Leave/Index', [
                 'leaves' => $leaves->toArray(),
                 'pageName' => 'Leave Requests',
+                'message' => session('message'),
             ]);
     }
 
@@ -57,7 +58,7 @@ class AdminLeaveController extends Controller
 
         $adminLeave->update($validatedData);
 
-        return redirect()->route('normaladmin.leaves.index');
+        return redirect()->route('normaladmin.leaves.index')->with('message', 'Leave was updated successfully.');
     }
 
     /**
@@ -78,7 +79,7 @@ class AdminLeaveController extends Controller
         $employeeLeave = $adminLeave->employeeLeave;
         $employeeLeave->update(['status' => 'approved']);
         
-        return redirect()->route('normaladmin.leaves.index');
+        return redirect()->route('normaladmin.leaves.index')->with('message', 'Leave was approved successfully.');
     }
 
     /**
@@ -98,6 +99,6 @@ class AdminLeaveController extends Controller
         $employeeLeave = $adminLeave->employeeLeave;
         $employeeLeave->update(['status' => 'rejected']);
 
-        return redirect()->route('normaladmin.leaves.index');
+        return redirect()->route('normaladmin.leaves.index')->with('message', 'Leave was rejected successfully.');
     }
 }

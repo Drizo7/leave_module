@@ -21,6 +21,7 @@ class AdminLeavetypeController extends Controller
         return Inertia::render('Admin/Leavetypes/Index', [
             'pageName' => 'Leavetypes ',
             'leavetypes' => $leavetypes,
+            'message' => session('message'),
         ]);
     }
 
@@ -46,7 +47,7 @@ class AdminLeavetypeController extends Controller
  
         Leavetype::create($validated);
  
-        return redirect(route('normaladmin.leavetypes.index'));
+        return redirect(route('normaladmin.leavetypes.index'))->with('message', 'Leavetype was created successfully.');
     }
 
     /**
@@ -76,7 +77,7 @@ class AdminLeavetypeController extends Controller
 
         $leavetype->update($validated);
 
-        return redirect()->route('normaladmin.leavetypes.index')->with('message', 'Leavetype updated successfully.');
+        return redirect()->route('normaladmin.leavetypes.index')->with('message', 'Leavetype was updated successfully.');
     }
 
     /**
@@ -87,6 +88,6 @@ class AdminLeavetypeController extends Controller
         Gate::authorize('delete', $leavetype);
 
         $leavetype->delete();
-        return redirect()->route('normaladmin.leavetypes.index');
+        return redirect()->route('normaladmin.leavetypes.index')->with('message', 'Leavetype was deleted successfully.');
     }
 }

@@ -3,11 +3,18 @@ import SuperAdminLayout from '@/Layouts/SuperAdminLayout.vue';
 import { Head, useForm, usePage, Link } from '@inertiajs/vue3';
 import DeleteButton from '@/Components/DangerButton.vue';
 import AssignButton from '@/Components/SuccessButton.vue';
+import DismissibleAlert from '@/Components/DismissibleAlert.vue';
 import { ref, computed } from 'vue';
 
 const { props: pageProps, replace } = usePage();
 const users = ref(pageProps.users || []);
 
+const props = defineProps({
+  message: {
+    type: String,
+    default: null,
+  },
+});
 const form = useForm({});
 
 const search = ref('');
@@ -61,6 +68,7 @@ function sortBy(key) {
   <Head title="Users" />
   <SuperAdminLayout>
     <div class="py-8">
+      <dismissible-alert v-if="props.message" :message="props.message" />
       <div class="max-w-6xl sm:px-3 lg:px-8">
         <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
           <div class="flex items-center justify-between">

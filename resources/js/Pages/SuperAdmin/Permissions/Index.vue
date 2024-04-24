@@ -4,6 +4,7 @@ import SuperAdminLayout from '@/Layouts/SuperAdminLayout.vue';
 import TertiallyButton from '@/Components/TertiallyButton.vue';
 import DeleteButton from '@/Components/DangerButton.vue';
 import EditButton from '@/Components/SecondaryButton.vue';
+import DismissibleAlert from '@/Components/DismissibleAlert.vue';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -14,6 +15,10 @@ const props = defineProps({
   permission: {
     type: Object,
     required: true,
+  },
+  message: {
+    type: String,
+    default: null,
   },
 });
 
@@ -44,6 +49,7 @@ function deletePermission(id) {
     <Head title="Permissions" />
     <SuperAdminLayout>
         <div class="py-8">
+          <dismissible-alert v-if="props.message" :message="props.message" />
             <div class="max-w-6xl sm:px-3 lg:px-8">
                 <div class="bg-white border border-gray-300 p-8 rounded-lg mb-4">
                     <div class="bg-white shadow-md rounded-lg overflow-hidden">

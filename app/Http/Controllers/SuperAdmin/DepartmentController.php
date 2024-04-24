@@ -21,6 +21,7 @@ class DepartmentController extends Controller
         return Inertia::render('SuperAdmin/Departments/Index', [
             'pageName' => 'Departments ',
             'departments' => $departments,
+            'message' => session('message'),
         ]);
     }
 
@@ -47,7 +48,7 @@ class DepartmentController extends Controller
  
         Department::create($validated);
  
-        return redirect(route('admin.departments.index'));
+        return redirect(route('admin.departments.index'))->with('message', 'Department was created successfully.');
     }
 
     /**
@@ -77,7 +78,7 @@ class DepartmentController extends Controller
 
         $department->update($validated);
 
-        return redirect()->route('admin.departments.index')->with('message', 'Department updated successfully.');
+        return redirect()->route('admin.departments.index')->with('message', 'Department was updated successfully.');
     }
 
     /**
@@ -88,6 +89,6 @@ class DepartmentController extends Controller
         Gate::authorize('delete', $department);
 
         $department->delete();
-        return redirect()->route('admin.departments.index');
+        return redirect()->route('admin.departments.index')->with('message', 'Department was deleted successfully.');
     }
 }
