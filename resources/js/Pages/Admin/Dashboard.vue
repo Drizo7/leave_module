@@ -3,7 +3,7 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 
-const { totalEmployees, totalDepartments, totalLeavetypes } = defineProps({
+const { totalEmployees, totalDepartments, totalLeavetypes, pendingLeaves, rejectedLeaves, approvedLeaves } = defineProps({
   users: {
     type: Array,
     required: true,
@@ -20,6 +20,18 @@ const { totalEmployees, totalDepartments, totalLeavetypes } = defineProps({
     type: Number,
     required: true,
   },
+  pendingLeaves: {
+        type: Number,
+        required: true,
+    },
+    approvedLeaves: {
+        type: Number,
+        required: true,
+    },
+    rejectedLeaves: {
+        type: Number,
+        required: true,
+    },
 });
 
 const { props: pageProps, replace } = usePage();
@@ -79,21 +91,21 @@ function nextPage() {
                   <div class="w-10 h-24 bg-yellow-400 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                   <div class="ml-8">
                     <p class="text-lg">Pending</p>
-                    <p class="text-4xl font-semi-bold">22</p>
+                    <p class="text-4xl font-semi-bold">{{ pendingLeaves }}</p>
                   </div>
                 </div>
                 <div class="flex items-center">
                   <div class="w-10 h-24 bg-green-600 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                   <div class="ml-8">
                     <p class="text-lg">Approved</p>
-                    <p class="text-4xl font-semi-bold">15</p>
+                    <p class="text-4xl font-semi-bold">{{ approvedLeaves }}</p>
                   </div>
                 </div>
                 <div class="flex items-center">
                   <div class="w-10 h-24 bg-red-600 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                   <div class="ml-8">
                     <p class="text-lg">Rejected</p>
-                    <p class="text-4xl font-semi-bold">5</p>
+                    <p class="text-4xl font-semi-bold">{{ rejectedLeaves }}</p>
                   </div>
                 </div>
               </div>

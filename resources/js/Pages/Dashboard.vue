@@ -1,7 +1,4 @@
 <script setup>
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
@@ -11,6 +8,18 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  pendingLeaves: {
+        type: Number,
+        required: true,
+    },
+    approvedLeaves: {
+        type: Number,
+        required: true,
+    },
+    rejectedLeaves: {
+        type: Number,
+        required: true,
+    },
 });
 
 const perPage = 10;
@@ -74,7 +83,7 @@ const sortBy = (column) => {
                                 <div class="w-10 h-24 bg-yellow-400 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
                                 <p class="text-lg">Pending</p>
-                                <p class="text-4xl font-semi-bold">22</p>
+                                <p class="text-4xl font-semi-bold">{{ pendingLeaves }}</p>
                                 </div>
                             </div>
 
@@ -82,7 +91,7 @@ const sortBy = (column) => {
                                 <div class="w-10 h-24 bg-green-600 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
                                 <p class="text-lg">Approved</p>
-                                <p class="text-4xl font-semi-bold">15</p>
+                                <p class="text-4xl font-semi-bold">{{ approvedLeaves }}</p>
                                 </div>
                             </div>
 
@@ -90,7 +99,7 @@ const sortBy = (column) => {
                                 <div class="w-10 h-24 bg-red-600 rounded-l-full rounded-r-none rounded-b-full rounded-t-none"></div>
                                 <div class="ml-8">
                                 <p class="text-lg">Rejected</p>
-                                <p class="text-4xl font-semi-bold">5</p>
+                                <p class="text-4xl font-semi-bold">{{ rejectedLeaves }}</p>
                                 </div>
                             </div>
                             </div>

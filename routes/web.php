@@ -32,9 +32,15 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     $leaves = Auth::user()->employeeLeaves()->get();
-
+    $pendingLeaves = $leaves->where('status', 'pending')->count();
+    $approvedLeaves = $leaves->where('status', 'approved')->count();
+    $rejectedLeaves = $leaves->where('status', 'rejected')->count(); 
+    
     return Inertia::render('Dashboard', [
         'leaves' => $leaves->toArray(),
+        'pendingLeaves' => $pendingLeaves,
+        'approvedLeaves' => $approvedLeaves,
+        'rejectedLeaves' => $rejectedLeaves,
         'pageName' => 'Leave Requests',
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');

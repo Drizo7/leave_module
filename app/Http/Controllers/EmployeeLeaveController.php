@@ -19,9 +19,20 @@ class EmployeeLeaveController extends Controller
     {
         $leaves = Auth::user()->employeeLeaves()->get();
 
+        $pendingLeaves = $leaves->where('status', 'pending')->count();
+        $approvedLeaves = $leaves->where('status', 'approved')->count();
+        $rejectedLeaves = $leaves->where('status', 'rejected')->count(); 
+        
+        \Log::info('Pending Leaves: ' . $pendingLeaves);
+    \Log::info('Approved Leaves: ' . $approvedLeaves);
+    \Log::info('Rejected Leaves: ' . $rejectedLeaves);
+
         return Inertia::render('Leave/Index', [
             'leaves' => $leaves->toArray(),
             'pageName' => 'Leave Requests',
+            'pendingLeaves' => $pendingLeaves,
+            'approvedLeaves' => $approvedLeaves,
+            'rejectedLeaves' => $rejectedLeaves,
             'message' => session('message'),
         ]);
     }

@@ -1,19 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import DashboardIcon from '@/Assets/dashboard.png';
-import DepartmentsIcon from '@/Assets/department.png';
-import EmployeesIcon from '@/Assets/ph-users.png';
-import LeavetypesIcon from '@/Assets/leave.png';
 import AdminsettingsIcon from '@/Assets/settings.png';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
 import InputText from 'primevue/inputtext';
 import 'primeicons/primeicons.css'
-import axios from 'axios';
+import NotificationIcon from '@/Components/NotificationIcon.vue';
 
 const showingNavigationDropdown = ref(false);
 const value1 = ref('');
@@ -41,15 +35,17 @@ const toggleNavigation = () => {
               <i class="pi pi-search absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400"></i>
               <InputText v-model="value1" placeholder="Quick Search" class="h-8 pl-10 pr-2 rounded-md border border-gray-300 focus:ring-indigo-200 focus:border-indigo-300 focus:ring-opacity-50 text-sm shadow-sm" />
             </div>
-  
+            <div class="ms-3 mt-1 relative">
+            <NotificationIcon />
+          </div>
             <!-- Settings Dropdown -->
-            <div class="ms-3 relative">
+            <div class="ms-1 relative">
               <Dropdown align="right" width="48">
                 <template #trigger>
                   <span class="inline-flex rounded-md">
-                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                    <button type="button" class="inline-flex items-center px-2 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                       {{ $page.props.auth.user.name }}
-                      <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <svg class="ms-1 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
                       </svg>
                     </button>
