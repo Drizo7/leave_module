@@ -35,7 +35,7 @@ Route::get('/dashboard', function () {
     $pendingLeaves = $leaves->where('status', 'pending')->count();
     $approvedLeaves = $leaves->where('status', 'approved')->count();
     $rejectedLeaves = $leaves->where('status', 'rejected')->count(); 
-    
+
     return Inertia::render('Dashboard', [
         'leaves' => $leaves->toArray(),
         'pendingLeaves' => $pendingLeaves,
@@ -154,18 +154,6 @@ Route::middleware(['auth', 'role:admin'])
     }); 
 
 
-Route::get('/departments', function () {
-    return Inertia::render('SuperAdmin/Departments', [
-        'pageName' => 'Departments',
-    ]);
-})->middleware(['auth', 'verified', 'role:admin|super-admin'])->name('departments');
-
-Route::get('/leavetypes', function () {
-    return Inertia::render('SuperAdmin/Leavetypes',[
-        'pageName' => 'Leave Types',
-    ]);
-})->middleware(['auth', 'verified', 'role:admin|super-admin'])->name('leavetypes');
-
 Route::get('/employeeform', function () {
     return Inertia::render('Forms/AddEmployeeForm');
 })->middleware(['auth', 'verified', 'role:admin|super-admin'])->name('employeeform');
@@ -177,10 +165,6 @@ Route::get('/departmentform', function () {
 Route::get('/leavetypeform', function () {
     return Inertia::render('Forms/AddLeaveTypeForm');
 })->middleware(['auth', 'verified', 'role:admin|super-admin'])->name('leavetypeform');
-
-Route::resource('chirps', ChirpController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

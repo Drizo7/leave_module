@@ -1,14 +1,19 @@
 <script setup>
-import { ref } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import TertiallyButton from '@/Components/TertiallyButton.vue';
 
 const form = useForm({
   type: '',
   start_date: '',
   end_date: '',
   reason: '',
+});
+
+const props = defineProps({
+    leaveTypes: {
+        type: Array,
+        required: true,
+    },
 });
 
 function submit() {
@@ -42,9 +47,7 @@ function submit() {
                   <label for="type" class="block font-medium text-sm text-gray-700">Leave Type</label>
                   <select v-model="form.type" id="type" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full mt-1">
                     <option value="">Select leave type</option>
-                    <option value="sick">Sick Leave</option>
-                    <option value="vacation">Vacation Leave</option>
-                    <option value="personal">Personal Leave</option>
+                    <option v-for="leaveType in leaveTypes" :key="leaveType.id" :value="leaveType.name">{{ leaveType.name }}</option>
                   </select>
                 </div>
                 <div>

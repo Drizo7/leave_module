@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EmployeeLeave;
 use App\Models\AdminLeave;
+use App\Models\Leavetype;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +25,8 @@ class EmployeeLeaveController extends Controller
         $rejectedLeaves = $leaves->where('status', 'rejected')->count(); 
         
         \Log::info('Pending Leaves: ' . $pendingLeaves);
-    \Log::info('Approved Leaves: ' . $approvedLeaves);
-    \Log::info('Rejected Leaves: ' . $rejectedLeaves);
+        \Log::info('Approved Leaves: ' . $approvedLeaves);
+        \Log::info('Rejected Leaves: ' . $rejectedLeaves);
 
         return Inertia::render('Leave/Index', [
             'leaves' => $leaves->toArray(),
@@ -44,8 +45,11 @@ class EmployeeLeaveController extends Controller
      */
     public function create()
     {
+        $leaveTypes = Leavetype::all();
+
         return Inertia::render('Leave/Apply', [
             'pageName' => 'Apply for Leave',
+            'leaveTypes' => $leaveTypes,
         ]);
     }
 
