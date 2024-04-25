@@ -22,6 +22,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'gender',
+        'date_of_birth',
+        'physical_address',
+        'phone_number',
+        'job_title',
     ];
 
     /**
@@ -35,7 +40,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
      * @return array<string, string>
      */
@@ -44,13 +49,10 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'date_of_birth' => 'date',
         ];
+    }
 
-    }
-    public function chirps(): HasMany
-    {
-        return $this->hasMany(Chirp::class);
-    }
     public function employeeLeaves()
     {
         return $this->hasMany(EmployeeLeave::class);

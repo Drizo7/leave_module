@@ -1,10 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-import NotificationPopup from '@/Components/NotificationPopup.vue'
-/* import { useEventBus } from '@/composables/useEventBus' */
+import { ref } from 'vue';
+import NotificationPopup from '@/Components/NotificationPopup.vue';
 
-/* const { listen } = useEventBus() */
 const showNotifications = ref(false)
 const notifications = ref([])
 
@@ -12,28 +9,6 @@ function toggleNotifications() {
     showNotifications.value = !showNotifications.value
 }
 
-function fetchNotifications() {
-    axios.get('/notifications')
-        .then(response => {
-            notifications.value = response.data
-        })
-        .catch(error => {
-            console.error(error)
-        })
-}
-
-function handleLeaveRequestCreated(leaveRequest) {
-    const newNotification = {
-        id: Date.now(),
-        message: `New leave request created by ${leaveRequest.user.name}`
-    }
-    notifications.value.unshift(newNotification)
-}
-
-onMounted(() => {
-    fetchNotifications()
-    //listen('leave-request-created', handleLeaveRequestCreated)
-})
 </script>
 
 <template>

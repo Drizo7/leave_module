@@ -19,7 +19,7 @@ class LeavetypeController extends Controller
     {
         $leavetypes = Leavetype::all();
         return Inertia::render('SuperAdmin/Leavetypes/Index', [
-            'pageName' => 'Leavetypes ',
+            'pageName' => 'Leave Types ',
             'leavetypes' => $leavetypes,
             'message' => session('message'),
         ]);
